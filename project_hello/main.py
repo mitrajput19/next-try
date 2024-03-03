@@ -1,28 +1,30 @@
 def p1a():
   print('''
-Info = []
-Name = input("Enter Your Name: ")
-Info.append(Name)
-Age = int(input("Enter Your Age: "))
-Info.append(Age)
-A = ["Fever", "Headache", "Tiredness", "Vomitting"]
-B = ["Urinate A Lot", "Feels Thirsty", "Weight Loss", "Blurry Vision", "Feels Very Hungry", "Feels Very Tired"]
-print(A, B)
-Symp = input("Enter Symptoms As Above Separated By Comma ")
+Info = [] 
+Name = input("Enter Your Name: ") 
+Info.append(Name) 
+Age = int(input("Enter Your Age: ")) 
+Info.append(Age) 
+A= ["Fever", "Headache", "Tiredness", "Vomitting"] 
+B= ["Urinate A Lot", "Feels Thirsty", "Weight Loss", "Blurry Vision", "Feels Very Hungry", 
+"Feels Very Tired"]
+print(A,B) 
+Symp = input("Enter Symptoms As Above Separated By Comma: ") 
 Lst = Symp.split(",")
 print(Info)
 print("Symptoms:")
 for i in Lst:
-    print(i)
-
-if i.strip() in A:
+    print(i)  
+  
+if i.strip() in A: 
     print("You May Have Malaria")
     print("Visit A Doctor")
-elif i.strip() in B:
+elif i.strip() in B: 
     print("You May Have Diabetes")
     print("Consume Less Sugar")
 else:
-    print("Symptoms Does Not Match")
+    print("Symptoms Does Not Match") 
+
 
 ''')
   
@@ -32,7 +34,7 @@ def p1b():
 name =input("Enter your name: ")
 fever =input("DO YOU HAVE fever (Y/N)").lower()
 cough =input("DO YOU HAVE cough (Y/N)").lower()
-sob =input("DO YOU HAVE shortness of breath (Y/N)").lower()
+sob =input("DO YOU HAVE shortness of breathe (Y/N)").lower()
 st =input("DO YOU HAVE sore throat (Y/N)").lower()
 mp =input("DO YOU HAVE muscle pain (Y/N)").lower()
 hc =input("DO YOU HAVE headache(Y/N)").lower()
@@ -43,31 +45,32 @@ lot=input("DO YOU HAVE Loss OF taste (Y/N)").lower()
 cp=input("DO YOU HAVE chest pain or pressure (Y/N)").lower()
 lsp =input("DO YOU HAVE Loss Of Speech or movement (Y/N)").lower()
 if fever=="y" and cough=="y" and sob=="y" and st=="y" and mp=="y" and hc=="y":
-    print(name+" "+" YOU HAVE FLU")
-    med=input("Sir/Ma'am would you like to took at some medicine for flu(Y/N)").lower()
-    if med=="y":
-        print("disclaimer contact doctor for better guidance")
-        print("There are four FDA-approved antiviral drugs recommended by CDC to treat flu this season")
-        print("1.Oseltasivir phosphate")
-        print("2.zonasivir ")
-        print("3.perasivir ")
-        print("4.balaxavir morboxil ")
+ print(name+" "+" YOU HAVE FLU")
+ med=input("Sir/Ma'am would you like to took at some medicine for flu(Y/N)").lower()
+ if med=="y":
+     print("disclainer contact doctor for better guidance")
+     print("There are four FDA-approved antiviral drugs recommended by CDC to treat flu this season")
+     print("1.Oseltasivir phosphate")
+     print("2.zonasivir ")
+     print("3.perasivir ")
+     print("4.balaxavir morboxil ")
 elif diarrhoea=="y" and st=="y" and fever =="y" and cough=="y" and conjunctivitis=="y" and lot=="y":
-    print(name+" "+" YOU HAVE Corona")
-    med=input("Sir/Ma'am would you like to took at some remedy for Corona(Y/N)").lower()
-    if med=="y":
-        print("TAKE VACCINE AND QUARANTINE")        
+     print(name+" "+" YOU HAVE Corona")
+     med=input("Sir/Ma'am would you like to took at some remedi for Corona(Y/N)").lower()
+     if med=="y":
+         print("TAKE VACCINE AND QUARANTINE") 
 elif fever=="y" and cough=="y":
-    print(name+" "+" YOU HAVE Common Cold")
-    med= input("Sir/Ma'am would you like to took at some remedy for common cold(Y/N)").lower()
-    if med=="y":
-        print("--------------------------------------------------------------------")
-        print("disclaimer contact doctor for better guidance")
-        print("--------------------------------------------------------------------")
-        print("Treatment consists of anti-inflammatories and decongestants\n Most people recover on their own")
-        print("1.Nonsteroidal anti-inflammatory drug, Analgesic, Antibistamine, Cough medicine and Decongestants")
+     print(name+" "+" YOU HAVE Common Cold")
+     med= input("Sir/Ma'am would you like to look at some remedi for common cold(Y/N)").lower()
+     if med=="y":
+         print("--------------------------------------------------------------------")
+         print("disclainer contact doctor for better guidance")
+         print("--------------------------------------------------------------------")
+         print("Treatment consists of anti-inflammatories and decongestants\n Most prople recover on their own")
+         print("1.Nonsteroidal anti-inflammatory drug, Analgesic, Antibistamine, Cough medicine and Deconges")
 else:
-    print("Unable to identify")
+     print("Unable to identify")
+
 
 
 ''')
@@ -299,41 +302,42 @@ cousin(X,Y):-parent(P,Y),sibling(S,P),parent(S,X).
 def p6a():
   print('''
 
-#Union of two fuzzy sets.
 A = dict()
 B = dict()
 Y = dict()
 A = {"a": 0.2, "b": 0.3, "c": 0.6, "d": 0.6}
 B = {"a": 0.9, "b": 0.9, "c": 0.4, "d": 0.5}
-print('The First Fuzzy Set is  :', A)
+print('The First Fuzzy Set is :', A)
 print('The Second Fuzzy Set is :', B)
-#Fuzzy Set Union.
-result={}
+# Fuzzy Set Union.
+result = {}
 for i in A:
-    if(A[i]>B[i]):
-        result[i]=A[i]
+    if (A[i] > B[i]):
+        result[i] = A[i]
     else:
-        result[i]=B[i]
-print("\nUnion of two sets is         :",result) 
-#Fuzzy Set Intersection
-result={}
+        result[i] = B[i]
+print("Union of two sets is", result)
+
+# Fuzzy Set Intersection
+result = {}
 for i in A:
-    if(A[i]<B[i]):
- 
-        result[i]=A[i]
+    if (A[i] < B[i]):
+        result[i] = A[i]
     else:
-        result[i]=B[i]
-print("Intersection of two sets is  :",result)
-#Fuzzt Set Complement
-result={}
+        result[i] = B[i]
+print("Intersection of two sets is", result)
+
+# Fuzzy Set Complement
+result = {}
 for i in A:
-    result[i]=round(1-A[i],2)
-print("Complement of First set is   :",result)
-#Fuzzy Set Difference
-result={}
+    result[i] = round(1 - A[i], 2)
+print("Complement of First set is", result)
+# Fuzzy Set Difference
+result = {}
 for i in A:
-    result[i]=round(min(A[i],1-B[i]),2)
-print("Difference of two sets is    :",result)
+    result[i] = round(min(A[i], 1 - B[i]), 2)
+print("Difference of two sets is", result)
+
 
 
 ''')
@@ -342,7 +346,7 @@ print("Difference of two sets is    :",result)
 def p6b():
   print('''
 
-!pip install fuzzywuzzy
+# !pip install fuzzywuzzy
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 s1 = "I love GeeksforGeeks"
@@ -351,14 +355,14 @@ print ("FuzzyWuzzy Ratio:          ", fuzz.ratio(s1, s2))
 print ("FuzzyWuzzy PartialRatio:   ", fuzz.partial_ratio(s1, s2))
 print ("FuzzyWuzzy TokenSortRatio: ", fuzz.token_sort_ratio(s1, s2))
 print ("FuzzyWuzzy TokenSetRatio:  ", fuzz.token_set_ratio(s1, s2))
-print ("FuzzyWuzzy WRatio:         ", fuzz.WRatio(s1, s2),'\n\n')
+print ("FuzzyWuzzy WRatio:         ", fuzz.WRatio(s1, s2))
 # for process library,
 query = 'geeks for geeks'
 choices = ['geek for geek', 'geek geek', 'g. for geeks']
 print ("List of ratios: ")
-print (process.extract(query, choices), '\n')
+print (process.extract(query, choices))
 print ("Best among the above list: ",)
-print (process.extractOne(query, choices), '\n')
+print (process.extractOne(query, choices))
 
 
 ''')
@@ -424,7 +428,7 @@ pyplot.show()
 
 ''')
 
-def p9():
+def p9a():
   print('''
 
 import pandas as pd
@@ -497,6 +501,30 @@ print("Non Linear SVMs is %(f) percent accurate" % (accuracy_score(NLSVM_pred,
 Y_test)*100))
 print("Decision Trees is %(f) percent accurate" % (accuracy_score(DT_pred, Y_test)*100))
 print("Random Forests is %(f) percent accurate" % (accuracy_score(RF_pred, Y_test)*100))  
+
+''')
+  
+def p9b():
+  print('''
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+customer_data = pd.read_csv("Mall_Customers.csv")
+# customer_data.shape
+customer_data.head()
+data = customer_data.iloc[:, 3:5].values
+import scipy.cluster.hierarchy as shc
+plt.figure(figsize=(10, 7))
+plt.title("Customer Dendograms")
+dend = shc.dendrogram(shc.linkage(data, method='ward'))
+from sklearn.cluster import AgglomerativeClustering
+cluster = AgglomerativeClustering(n_clusters=5, linkage='ward')
+cluster.fit_predict(data)
+plt.figure(figsize=(10,7))
+plt.scatter(data[:,0], data[:,1], c=cluster.labels_, cmap='rainbow')
+plt.show() 
+
 
 ''')
   
