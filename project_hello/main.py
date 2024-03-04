@@ -1,172 +1,148 @@
-def p1a():
+def p1():
   print('''
-Info = [] 
-Name = input("Enter Your Name: ") 
-Info.append(Name) 
-Age = int(input("Enter Your Age: ")) 
-Info.append(Age) 
-A= ["Fever", "Headache", "Tiredness", "Vomitting"] 
-B= ["Urinate A Lot", "Feels Thirsty", "Weight Loss", "Blurry Vision", "Feels Very Hungry", 
-"Feels Very Tired"]
-print(A,B) 
-Symp = input("Enter Symptoms As Above Separated By Comma: ") 
-Lst = Symp.split(",")
-print(Info)
-print("Symptoms:")
-for i in Lst:
-    print(i)  
-  
-if i.strip() in A: 
-    print("You May Have Malaria")
-    print("Visit A Doctor")
-elif i.strip() in B: 
-    print("You May Have Diabetes")
-    print("Consume Less Sugar")
-else:
-    print("Symptoms Does Not Match") 
+
+import numpy
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score
+
+numpy.random.seed(2)
+
+x = numpy.random.normal(3, 1, 100)
+print(x)
+y = numpy.random.normal(150, 40, 100) / x
+print(y)
+plt.scatter(x, y)
+plt.show()
+train_x = x[:80]
+train_y = y[:80]
+test_x = x[:20]
+test_y = y[:20]
+print(train_x, train_y, test_x, test_y)
+plt.scatter(train_x, train_y)
+plt.show()
+train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.3)
+plt.scatter(test_x, test_y)
+plt.show()
+mymodel = numpy.poly1d(numpy.polyfit(train_x, train_y, 4))
+myline = numpy.linspace(0, 6, 200)
+plt.scatter(train_x, train_y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+mymodel = numpy.poly1d(numpy.polyfit(test_x, test_y, 4))
+myline = numpy.linspace(0, 6, 200)
+plt.scatter(test_x, test_y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+r2 = r2_score(train_y, mymodel(train_x))
+print(r2)
+print(mymodel(5))
 
 
 ''')
   
-def p1b():
-  print('''
-
-name =input("Enter your name: ")
-fever =input("DO YOU HAVE fever (Y/N)").lower()
-cough =input("DO YOU HAVE cough (Y/N)").lower()
-sob =input("DO YOU HAVE shortness of breathe (Y/N)").lower()
-st =input("DO YOU HAVE sore throat (Y/N)").lower()
-mp =input("DO YOU HAVE muscle pain (Y/N)").lower()
-hc =input("DO YOU HAVE headache(Y/N)").lower()
-#CORONA
-diarrhoea=input("DO YOU HAVE diarrhoea (Y/N)").lower()
-conjunctivitis=input("DO YOU HAVE conjunctivitis (Y/N)").lower()
-lot=input("DO YOU HAVE Loss OF taste (Y/N)").lower()
-cp=input("DO YOU HAVE chest pain or pressure (Y/N)").lower()
-lsp =input("DO YOU HAVE Loss Of Speech or movement (Y/N)").lower()
-if fever=="y" and cough=="y" and sob=="y" and st=="y" and mp=="y" and hc=="y":
- print(name+" "+" YOU HAVE FLU")
- med=input("Sir/Ma'am would you like to took at some medicine for flu(Y/N)").lower()
- if med=="y":
-     print("disclainer contact doctor for better guidance")
-     print("There are four FDA-approved antiviral drugs recommended by CDC to treat flu this season")
-     print("1.Oseltasivir phosphate")
-     print("2.zonasivir ")
-     print("3.perasivir ")
-     print("4.balaxavir morboxil ")
-elif diarrhoea=="y" and st=="y" and fever =="y" and cough=="y" and conjunctivitis=="y" and lot=="y":
-     print(name+" "+" YOU HAVE Corona")
-     med=input("Sir/Ma'am would you like to took at some remedi for Corona(Y/N)").lower()
-     if med=="y":
-         print("TAKE VACCINE AND QUARANTINE") 
-elif fever=="y" and cough=="y":
-     print(name+" "+" YOU HAVE Common Cold")
-     med= input("Sir/Ma'am would you like to look at some remedi for common cold(Y/N)").lower()
-     if med=="y":
-         print("--------------------------------------------------------------------")
-         print("disclainer contact doctor for better guidance")
-         print("--------------------------------------------------------------------")
-         print("Treatment consists of anti-inflammatories and decongestants\n Most prople recover on their own")
-         print("1.Nonsteroidal anti-inflammatory drug, Analgesic, Antibistamine, Cough medicine and Deconges")
-else:
-     print("Unable to identify")
-
-
-
-''')
 
 
 def p2():
   print('''
 
-#Open cmd and install pip –
-#pip install aiml 
-#pip install python-aiml 
-# simply.py
-import aiml
-kernel = aiml.Kernel()
-kernel.learn("std-startup.xml")
-kernel.respond("load aiml b")
-while True:
- input_text = input(">Human: ")
- response = kernel.respond(input_text)
- print(">Bot: "+response)
-# basic_chat.aiml
-<aiml version="1.0.1" encoding="UTF-8">
-<!-- basic_chat.aiml -->
- <category>
- <pattern>HELLO *</pattern>
- <template>
- Well, Hello User!
- </template>
- </category>
- <category>
- <pattern>WHAT ARE YOU</pattern>
- <template>
- I'm an Assistant!
- </template>
- </category>
- <category>
- <pattern>WHAT DO YOU DO</pattern>
- <template>
- I'm here to assist you!
- </template>
- </category>
- <category>
- <pattern>WHO AM I</pattern>
- <template>
- You are a Developer
- </template>
- </category>
-</aiml>
-# std-startup
-<aiml version="1.0.1" encoding="UTF-8">
- <!-- std-startup.xml -->
- <!-- Category is an atomic AIML unit -->
- <category>
- <!-- Pattern to match in user input -->
- <!-- If user enters "LOAD AIML B" -->
- <pattern>LOAD AIML B</pattern>
- <!-- Template is the response to the pattern -->
- <!-- This learn an aiml file -->
- <template>
- <learn>basic_chat.aiml</learn>
- <!-- You can add more aiml files here -->
- <!--<learn>more_aiml.aiml</learn>-->
- </template>
- </category>
-</aiml>
+import csv
+a = []
+with open("C:/Users/HP/Downloads/data.csv", 'r') as csvfile:
+    next(csvfile)
+    for row in csv.reader(csvfile):
+        a.append(row)
+    print(a)
+
+print("The total number of training instances are : ",len(a))
+
+num_attribute = len(a[0])-1
+
+print("The initial hypothesis is : ")
+hypothesis = ['0']*num_attribute
+print(hypothesis)
+
+for i in range(0, len(a)):
+    if a[i][num_attribute] == 'yes':
+        print ("Instance ", i+1, "is", a[i], " and is Positive Instance")
+        for j in range(0, num_attribute):
+            if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:
+                hypothesis[j] = a[i][j]
+            else:
+                hypothesis[j] = '?'
+        print("The hypothesis for the training instance", i+1, " is: " , hypothesis)
+
+    if a[i][num_attribute] == 'no':
+        print ("Instance ", i+1, "is", a[i], " and is Negative Instance Hence Ignored")
+        print("The hypothesis for the training instance", i+1, " is: " , hypothesis)
+
+print("The Maximally specific hypothesis for the training instance is ", hypothesis) 
+
 
 
 ''')
-  
+
 
 def p3a():
   print('''
 
-def bayes_theorem(p_h,p_e_given_h,p_e_given_not_h):  
-    #P(not h)  
-    not_h=1-p_h  
- 
-    #P(E)  
-    p_e=p_e_given_h*p_h+p_e_given_not_h*not_h  
- 
-    #P(H|E)  
-    p_h_given_e=(p_e_given_h*p_h)/p_e  
-    return p_h_given_e
-# P(H) User has a cold  
-p_h = float(input("Enter probability of User having cold = "))  
- 
-# P(E|H) User observed sneezing when he had cold  
-p_e_given_h = float(input("Enter probability of User observed sneezing when he had cold = "))  
- 
-# P(E|not ~H) User observed sneezing when he did not have cold  
-p_e_given_not_h = float(input("Enter probability of User observed sneezing when he did not have cold = "))  
- 
-# calculate P(H|E) User has old given Chaitu was observed sneezing  
-result = bayes_theorem(p_h, p_e_given_h, p_e_given_not_h)  
- 
-print("User's probability of having cold given that he sneezes is P(H|E) = " ,round(result,2))
+#(iris)
+from sklearn import svm, datasets
+import sklearn.model_selection as model_selection
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns #pip install seaborn
+
+iris = datasets.load_iris()
+#iris = datasets.load_wine()
+
+X = iris.data[:, :2]
+y = iris.target
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, train_size=0.80, test_size=0.20, random_state=101)
+
+rbf = svm.SVC(kernel='rbf', gamma=0.5, C=0.1).fit(X_train, y_train)
+poly = svm.SVC(kernel='poly', degree=3, C=1).fit(X_train, y_train)
+
+poly_pred = poly.predict(X_test)
+rbf_pred = rbf.predict(X_test)
+
+poly_accuracy = accuracy_score(y_test, poly_pred)
+poly_f1 = f1_score(y_test, poly_pred, average='weighted')
+print('Accuracy (Polynomial Kernel): ', "%(.2f)" % (poly_accuracy*100))
+print('F1 (Polynomial Kernel): ', "%(.2f)" % (poly_f1*100))
+
+rbf_accuracy = accuracy_score(y_test, rbf_pred)
+rbf_f1 = f1_score(y_test, rbf_pred, average='weighted')
+print('Accuracy (RBF Kernel): ', "%(.2f)" % (rbf_accuracy*100))
+print('F1 (RBF Kernel): ', "%(.2f)" % (rbf_f1*100)) 
+
+# Calculate the confusion matrix for the Polynomial Kernel model
+poly_confusion_matrix = confusion_matrix(y_test, poly_pred)
+print('Confusion Matrix (Polynomial Kernel):', poly_confusion_matrix)
+
+# Create a heatmap of the confusion matrix for Polynomial Kernel
+plt.figure(figsize=(8, 6))
+sns.heatmap(poly_confusion_matrix, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix (Polynomial Kernel)')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
+
+# Calculate the confusion matrix for the RBF Kernel model
+rbf_confusion_matrix = confusion_matrix(y_test, rbf_pred)
+print('Confusion Matrix (RBF Kernel):', rbf_confusion_matrix)
+
+# Create a heatmap of the confusion matrix for RBF Kernel
+plt.figure(figsize=(8, 6))
+sns.heatmap(rbf_confusion_matrix, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix (RBF Kernel)')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show() 
+
+
 
 
 ''')
@@ -174,256 +150,421 @@ print("User's probability of having cold given that he sneezes is P(H|E) = " ,ro
 def p3b():
   print('''
 
-def drug_user(prob_th=0.5, sensitivity=0.97, specificity=0.95, prevelance=0.005, verbose=True):
-    # FORMULA
-    p_user = prevelance
-    p_non_user = 1 - prevelance
-    p_pos_user = sensitivity
-    p_neg_user = specificity
-    p_pos_non_user = 1 - specificity
-    num = p_pos_user * p_user
-    den = p_pos_user * p_user + p_pos_non_user * p_non_user
-    prob = num / den
-    print("Probability of the user being a drug user is", round(prob, 3))
-    if verbose:
-        if prob > prob_th:
-            print("The user could be an user")
-        else:
-            print("The user may not be an user")
-    return prob
+#(wine)
 
 
-drug_user()
+from sklearn import svm, datasets
+import sklearn.model_selection as model_selection
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns 
+
+#iris = datasets.load_iris()
+wine = datasets.load_wine()
+
+X = wine.data[:, :2]
+y = wine.target
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, train_size=0.80, test_size=0.20, random_state=101)
+
+rbf = svm.SVC(kernel='rbf', gamma=0.5, C=0.1).fit(X_train, y_train)
+poly = svm.SVC(kernel='poly', degree=3, C=1).fit(X_train, y_train)
+
+poly_pred = poly.predict(X_test)
+rbf_pred = rbf.predict(X_test)
+
+poly_accuracy = accuracy_score(y_test, poly_pred)
+poly_f1 = f1_score(y_test, poly_pred, average='weighted')
+print('Accuracy (Polynomial Kernel): ', "%(.2f)" % (poly_accuracy*100))
+print('F1 (Polynomial Kernel): ', "%(.2f)" % (poly_f1*100))
+
+rbf_accuracy = accuracy_score(y_test, rbf_pred)
+rbf_f1 = f1_score(y_test, rbf_pred, average='weighted')
+print('Accuracy (RBF Kernel): ', "%(.2f)" % (rbf_accuracy*100))
+print('F1 (RBF Kernel): ', "%(.2f)" % (rbf_f1*100))
+
+
+# Calculate the confusion matrix for the Polynomial Kernel model
+poly_confusion_matrix = confusion_matrix(y_test, poly_pred)
+print('Confusion Matrix (Polynomial Kernel):', poly_confusion_matrix)
+
+# Create a heatmap of the confusion matrix for Polynomial Kernel
+plt.figure(figsize=(8, 6))
+sns.heatmap(poly_confusion_matrix, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix (Polynomial Kernel)')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
+
+# Calculate the confusion matrix for the RBF Kernel model
+rbf_confusion_matrix = confusion_matrix(y_test, rbf_pred)
+print('Confusion Matrix (RBF Kernel):', rbf_confusion_matrix)
+
+# Create a heatmap of the confusion matrix for RBF Kernel
+plt.figure(figsize=(8, 6))
+sns.heatmap(rbf_confusion_matrix, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix (RBF Kernel)')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show() 
+
 
 
 ''')
   
-def p4a():
+  
+  
+def p4():
   print('''
 
-graph = {
-  '5' : ['3','7'],
-  '3' : ['2', '4'],
-  '7' : ['8'],
-  '2' : [],
-  '4' : ['8'],
-  '8' : []
-}
-visited = [] # List for visited nodes.
-queue = []     #Initialize a queue
-def bfs(visited, graph, node): #function for BFS
-  visited.append(node)
-  queue.append(node)
-  while queue:          # Creating loop to visit each node
-    m = queue.pop(0) 
-    print (m, end = " ") 
-    for neighbour in graph[m]:
-      if neighbour not in visited:
-        visited.append(neighbour)
-        queue.append(neighbour)
-# Driver Code
-print("Following is the Breadth-First Search (BFS)")
-bfs(visited, graph, '5')    # function calling
+import numpy as np
+import pandas as pd
+
+#Loading data from a csv file.
+data = pd.DataFrame(data=pd.read_csv('data.csv'))
+print(data)
+
+print("############################################################")
+#Separating concept features from Target
+concepts = np.array(data.iloc[:,0:6])
+print(concepts)
+
+print("############################################################")
+#Isolating target into a separate DataFrame
+#Copying last column to target  array
+target = np.array(data.iloc[:,6])
+print(target) 
+
+print("############################################################")
+
+def learn(concepts, target): 
+#Initialise S0 with the first instance from concepts.
+#.copy()makes sure a new list is created instead of just pointing to the same memory location.
+    specific_h = concepts[0].copy()
+    print("\(n)Initialization of specific_h and genearal_h")
+    print("\(n)Specific Boundary: ", specific_h)
+    general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
+    print("\(n)Generic Boundary: ",general_h)  
+# The learning iterations.
+    for i, h in enumerate(concepts):
+        print("\(n)Instance", i+1 , "is ", h)
+# Checking if the hypothesis has a positive target.
+        if target[i] == "yes":
+            print("Instance is Positive ")
+            for x in range(len(specific_h)): 
+# Change values in S & G only if values change.
+                if h[x]!= specific_h[x]:                    
+                    specific_h[x] ='?'                     
+                    general_h[x][x] ='?'
+# Checking if the hypothesis has a positive target.                  
+        if target[i] == "no":            
+            print("Instance is Negative ")
+            for x in range(len(specific_h)): 
+# For negative hypothesis change values only in G.
+                if h[x]!= specific_h[x]:                    
+                    general_h[x][x] = specific_h[x]                
+                else:                    
+                    general_h[x][x] = '?'        
+        
+        print("Specific Bundary after ", i+1, "Instance is ", specific_h)         
+        print("Generic Boundary after ", i+1, "Instance is ", general_h)
+# find indices where we have empty rows, meaning those that are unchanged.
+    indices = [i for i, val in enumerate(general_h) if val == ['?', '?', '?', '?', '?', '?']]    
+    for i in indices:   
+# remove those rows from general_h
+        general_h.remove(['?', '?', '?', '?', '?', '?']) 
+# Return final values
+    return specific_h, general_h 
+
+s_final, g_final = learn(concepts, target)
+print("Final Specific_h: ", s_final, sep="\(n)")
+print("Final General_h: ", g_final, sep="\(n)")
+
 
 
 ''')
-  
-def p4b():
-  print('''
-
-graph = {
-  '5' : ['3','7'],
-  '3' : ['2', '4'],
-  '7' : ['8'],
-  '2' : [],
-  '4' : ['8'],
-  '8' : []
-}
-visited = set() # Set to keep track of visited nodes of graph.
-def dfs(visited, graph, node):  #function for dfs 
-    if node not in visited:
-        print (node)
-        visited.add(node)
-        for neighbour in graph[node]:
-            dfs(visited, graph, neighbour)
-# Driver Code
-print("Following is the Depth-First Search")
-dfs(visited, graph, '5')
 
 
-''')
-  
 def p5():
   print('''
 
-male(dragon).
-male(garp).
-male(ace).
-male(sabo). 
-male(roger).
-male(luffy).
- 
-female(crocodile). 
-female(datan).
-female(aika).
-female(law).
-female(rouge).
- 
-parent(dragon,luffy).
-parent(crocodile,luffy).
-parent(dragon,ace).
-parent(crocodile,ace).
-parent(dragon,aika).
-parent(vasanti,aika).
-parent(garp,dragon).
-parent(datan,dragon).
-mother(X,Y):-parent(X,Y),female(X).
-father(X,Y):- parent(X,Y), male(X).
- 
-grandmother(GM,X):- mother(GM,Y) ,parent(Y,X).
-grandfather(GF,X):- father(GF,Y) ,parent(Y,X).
- 
-greatgrandmother(GGM,X):- mother(GGM,GM) ,parent(GM,F),parent(F,Y),parent(Y,X).
-greatgrandfather(GGF,X):- father(GGF,GF) ,parent(GF,F),parent(F,Y),parent(Y,X).
- 
-sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
-brother(X, Y) :- sibling(X, Y), male(X).
-sister(X, Y) :- sibling(X, Y), female(X).
- 
-uncle(U,X):- parent(Y,X), brother(U,Y).
-aunt(A,X):- parent(Y,X), sister(A,Y).
-nephew(N,X):- sibling(S,X),parent(S,N),male(N).
-niece(N,X):-sibling(S,X), parent(S,N), female(N).
-cousin(X,Y):-parent(P,Y),sibling(S,P),parent(S,X).
-
-
-''')
-  
-def p6a():
-  print('''
-
-A = dict()
-B = dict()
-Y = dict()
-A = {"a": 0.2, "b": 0.3, "c": 0.6, "d": 0.6}
-B = {"a": 0.9, "b": 0.9, "c": 0.4, "d": 0.5}
-print('The First Fuzzy Set is :', A)
-print('The Second Fuzzy Set is :', B)
-# Fuzzy Set Union.
-result = {}
-for i in A:
-    if (A[i] > B[i]):
-        result[i] = A[i]
-    else:
-        result[i] = B[i]
-print("Union of two sets is", result)
-
-# Fuzzy Set Intersection
-result = {}
-for i in A:
-    if (A[i] < B[i]):
-        result[i] = A[i]
-    else:
-        result[i] = B[i]
-print("Intersection of two sets is", result)
-
-# Fuzzy Set Complement
-result = {}
-for i in A:
-    result[i] = round(1 - A[i], 2)
-print("Complement of First set is", result)
-# Fuzzy Set Difference
-result = {}
-for i in A:
-    result[i] = round(min(A[i], 1 - B[i]), 2)
-print("Difference of two sets is", result)
-
-
-
-''')
-
-
-def p6b():
-  print('''
-
-# !pip install fuzzywuzzy
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-s1 = "I love GeeksforGeeks"
-s2 = "I am loving GeeksforGeeks"
-print ("FuzzyWuzzy Ratio:          ", fuzz.ratio(s1, s2))
-print ("FuzzyWuzzy PartialRatio:   ", fuzz.partial_ratio(s1, s2))
-print ("FuzzyWuzzy TokenSortRatio: ", fuzz.token_sort_ratio(s1, s2))
-print ("FuzzyWuzzy TokenSetRatio:  ", fuzz.token_set_ratio(s1, s2))
-print ("FuzzyWuzzy WRatio:         ", fuzz.WRatio(s1, s2))
-# for process library,
-query = 'geeks for geeks'
-choices = ['geek for geek', 'geek geek', 'g. for geeks']
-print ("List of ratios: ")
-print (process.extract(query, choices))
-print ("Best among the above list: ",)
-print (process.extractOne(query, choices))
-
-
-''')
-  
-def p7a():
-  print('''
-
-import seaborn as sns
+import numpy as np
 import pandas as pd
+from sklearn import datasets
+
+#Load dataset
+wine = datasets.load_wine()
+
+#print (wine) #if you want to see the data you can print data
+#print the name of the 13 features
+#print("Features: ", wine.feature_names) 
+
+#print the label type of wine
+print("Labels: ", wine.target_names)
+X=pd.DataFrame(wine['data'])
+print(X.head())
+print(wine.data.shape)
+
+#print the wine labels (0:Class_0, 1:class_2, 2:class_2)
+y= wine.target
+print("y=",y)
+
+
+#import train_test_split function
+from sklearn.model_selection import train_test_split
+#split dataset into training set and test set.
+X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.30,random_state=10)
+
+#import gaussian naive bayes model.
+from sklearn.naive_bayes import GaussianNB
+#create a gaussian classifier
+gnb = GaussianNB()
+#train the model using the training sets
+gnb.fit(X_train,y_train)
+print("")
+print("#############################################################")
+print("")
+#predict the response for test dataset
+y_pred = gnb.predict(X_test)
+print(y_pred) 
+
+from sklearn import metrics
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+#confusion matrix
+from sklearn.metrics import confusion_matrix
+cm=np.array(confusion_matrix(y_test,y_pred))
+print(cm) 
+
+
+
+''')
+  
+def p6():
+  print('''
+
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-df = pd.DataFrame({'x': [10, 38, 5, 7, 300, 11, 113, 165, 17, 19],
-                   'y': [28, 4, 6, 8, 10, 122, 14, 16, 158, 200]})
-sns.jointplot(x='x', y='y', data=df, kind='kde').plot_joint(sns.scatterplot)
+import seaborn as sns
+#%matplotlib inline
+
+df = pd.read_csv("C:/Users/HP/Downloads/WA_Fn-UseC_-HR-Employee-Attrition.csv") 
+#Keeping emp position unaffects.
+print(df.head())
+
+#Exploratory Data Analysis
+sns.countplot(x='Attrition', data=df)
 plt.show()
 
+from pandas.core.arrays import categorical
+df.drop(['EmployeeCount','EmployeeNumber', 'Over18', 'StandardHours'], axis="columns", inplace=True)
+categorical_col = []
+for column in df.columns:
+  if df[column].dtype == object:
+    categorical_col.append(column)
+
+df['Attrition'] = df.Attrition.astype("category").cat.codes
+
+from sklearn.preprocessing import LabelEncoder
+for column in categorical_col:
+  df[column] = LabelEncoder().fit_transform(df[column])
+
+
+from sklearn.model_selection import train_test_split
+X = df.drop('Attrition', axis=1)
+y = df.Attrition
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+from sklearn.metrics import (accuracy_score, log_loss, classification_report, confusion_matrix)
+def print_score(clf, X_train, y_train, X_test, y_test, train=True):
+  if train:
+    pred = clf.predict(X_train)
+    clf_report = pd.DataFrame(classification_report(y_train, pred, output_dict=True))
+    print("Train Result:\(n)=======================================")
+    print(f"Accuracy Score: {accuracy_score(y_train, pred) * 100:.2f}%")
+    print("____________________________________")
+    print(f"CLASSIFICATION REPORT:\(n){clf_report}")
+    print("____________________________________")
+    print(f"Confusion Matrix: \(n){confusion_matrix(y_train, pred)}\(n)")
+
+  elif train==False:
+    pred = clf.predict(X_test)
+    clf_report = pd.DataFrame(classification_report(y_test, pred, output_dict=True))
+    print("Test Result:\(n)=======================================")
+    print(f"Accuracy Score: {accuracy_score(y_test, pred) * 100:.2f}%")
+    print("____________________________________")
+    print(f"CLASSIFICATION REPORT:\(n){clf_report}")
+    print("____________________________________")
+    print(f"Confusion Matrix: \(n){confusion_matrix(y_test, pred)}\(n)") 
+
+### Decision Tree Classifier ###
+from sklearn.tree import DecisionTreeClassifier
+from pickle import TRUE
+from sklearn.tree import DecisionTreeClassifier
+
+tree_clf = DecisionTreeClassifier(random_state=42)
+tree_clf.fit(X_train, y_train)
+print_score(tree_clf, X_train,y_train, X_test, y_test, train=True)
+print_score(tree_clf, X_train,y_train, X_test, y_test, train=False) 
+
+
+### Random Forest Classifier ###
+from sklearn.ensemble import RandomForestClassifier
+
+rf_clf = RandomForestClassifier(random_state=42)
+rf_clf.fit(X_train, y_train)
+print_score(rf_clf, X_train, y_train, X_test, y_test, train=True)
+print_score(rf_clf, X_train, y_train, X_test, y_test, train=False)
+
+
+
 
 ''')
 
-def p7b():
+
+
+  
+def p7():
   print('''
 
+import numpy as np 
 import pandas as pd 
-df = pd.read_csv('student-mat.csv')
-print(df.head(3))
-print(len(df))
-import numpy as np
-df['grade_A'] = np.where(df['G3']*5 >= 80, 1, 0)
-df['high_absenses'] = np.where(df['absences'] >= 10, 1, 0)
-df['count'] = 1
-df = df[['grade_A','high_absenses','count']] 
-print(df.head())
-print(pd.pivot_table( 
-    df,  
-    values='count',  
-    index=['grade_A'],  
-    columns=['high_absenses'],  
-    aggfunc=np.size,  
-    fill_value=0 
-))
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data' 
+
+names = ['sepal-length','sepal-width','petal-length','petal-width','Class'] 
+dataset = pd.read_csv(url, names=names) 
+print(dataset.head())
+
+#store the features sets into X variables and  
+# the series of corresponding variables in y 
+x=dataset.drop('Class',axis=1) 
+y=dataset['Class'] 
+
+from sklearn.model_selection import train_test_split 
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2, random_state=0) 
+
+
+from sklearn.preprocessing import StandardScaler 
+sc = StandardScaler() 
+x_train1 = sc.fit_transform(x_train) 
+x_test1 = sc.transform(x_test) 
+y_train1 = y_train 
+y_test1 = y_test 
+ 
+from sklearn.decomposition import PCA 
+pca=PCA() 
+x_train1=pca.fit_transform(x_train1) 
+x_test1=pca.transform(x_test1) 
+explained_variance = pca.explained_variance_ratio_ 
+print(explained_variance) 
+
+pca = PCA(n_components=1)  
+x_train1 = pca.fit_transform(x_train1) 
+x_test1 = pca.transform(x_test1) 
+
+from sklearn.ensemble import RandomForestClassifier 
+classifier = RandomForestClassifier(max_depth=2, random_state=0) 
+classifier.fit(x_train1, y_train1) 
+y_pred=classifier.predict(x_test1) 
+
+from sklearn.metrics import confusion_matrix 
+from sklearn.metrics import accuracy_score 
+ 
+cm=confusion_matrix(y_test,y_pred) 
+print(cm) 
+print('Accuracy',accuracy_score(y_test,y_pred)) 
+
 
 
 ''')
 
 
-def p8():
+
+def p8a():
   print('''
 
-#Synthetic classification dataset
-from numpy import where
-from sklearn.datasets import make_classification
-from matplotlib import pyplot
-#Define datasets
-X,y=make_classification(n_samples=1000,n_features=2,n_informative=2,n_redundant=0,n_clusters_per_class=1,random_state=4)
-#Create scatter plot for samples from each class
-for class_value in range(2):
-    #Get row indexes for samples with this class
-    row_ix=where(y==class_value)
-    #Create scatter of these samples
-    pyplot.scatter(X[row_ix,0],X[row_ix,1])
-#Show the plot
-pyplot.show()
+# Making imports
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = (12.0,9.0)
+
+np.random.seed(42)
+X = np.linspace(0, 10, 100)
+Y = 2.5 * X + 1.5 + np.random.normal(0, 2, 100)
+data = pd.DataFrame({'X': X, 'Y': Y})
+
+plt.scatter(X, Y)
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Synthetic Data for Least Square Regression')
+plt.show()
+
+# Building the model
+X_mean = np.mean(X)
+Y_mean = np.mean(Y)
+
+num = 0
+den = 0
+for i in range(len(X)):
+  num += (X[i] - X_mean)*(Y[i] - Y_mean)
+  den += (X[i] - X_mean)**2
+m = num/den
+c = Y_mean - m*X_mean
+print (m,c)
+
+# Making predictions
+Y_pred = m*X + c
+plt.scatter(X, Y)  # actual
+plt.plot([min(X),max(X)],[min(Y_pred), max(Y_pred)], color='red') #prediction
+plt.show() 
+
+
+
+''')
+
+
+def p8b():
+  print('''
+
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Importing the dataset
+dataset = pd.read_csv('https://raw.githubusercontent.com/mk-gurucharan/Classification/master/DMVWrittenTests.csv')
+X = dataset.iloc[:, [0,1]].values
+Y = dataset.iloc[:,2].values
+print(dataset.head(5))
+
+# Splitting the dataset into the training set and test set.
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.25, random_state = 0)
+
+
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+
+# Training the logistic regression model on the training set
+from sklearn.linear_model import LogisticRegression
+classifier = LogisticRegression()
+classifier.fit(X_train, Y_train)
+# Predicting the test set results.
+y_pred = classifier.predict(X_test)
+print(y_pred)
+
+# Confusion Matrix and Accuracy.
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(Y_test,y_pred)
+from sklearn.metrics import accuracy_score
+print ("Accuracy:", accuracy_score(Y_test, y_pred))
+print(cm)
 
 
 ''')
@@ -431,206 +572,233 @@ pyplot.show()
 def p9a():
   print('''
 
-import pandas as pd
 import numpy as np
-titanic= pd.read_csv("C:/Users/HP/Downloads/train.csv")
-titanic.head()
-titanic_cat = titanic.select_dtypes(object)
-titanic_num = titanic.select_dtypes(np.number)
-titanic_cat.head()
-titanic_num.head()
-titanic_cat.drop(['Name','Ticket'], axis=1, inplace=True)
-titanic_cat.head()
-titanic_cat.isnull().sum()
-titanic_cat.Cabin.fillna(titanic_cat.Cabin.value_counts().idxmax(), inplace=True)
-titanic_cat.Embarked.fillna(titanic_cat.Embarked.value_counts().idxmax(), inplace=True)
-titanic_cat.head(20)
-from sklearn.preprocessing import LabelEncoder
-le = LabelEncoder()
-titanic_cat = titanic_cat.apply(le.fit_transform)
-titanic_cat.head()
-titanic_num.isna().sum()
-titanic_num.Age.fillna(titanic_num.Age.mean(), inplace=True)
-titanic_num.isna().sum()
-titanic_num.drop(['PassengerId'], axis=1, inplace=True)
-titanic_num.head()
-titanic_final = pd.concat([titanic_cat,titanic_num],axis=1)
-titanic_final.head()
-X=titanic_final.drop(['Survived'],axis=1)
-Y= titanic_final['Survived']
-X_train = np.array(X[0:int(0.80*len(X))])
-Y_train = np.array(Y[0:int(0.80*len(Y))])
-X_test = np.array(X[int(0.80*len(X)):])
-Y_test = np.array(Y[int(0.80*len(Y)):])
-len(X_train), len(Y_train), len(X_test), len(Y_test)
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-LR = LogisticRegression()
-KNN = KNeighborsClassifier()
-NB = GaussianNB()
-LSVM = LinearSVC()
-NLSVM = SVC(kernel='rbf')
-DT = DecisionTreeClassifier()
-RF = RandomForestClassifier()
-LR_fit = LR.fit(X_train, Y_train)
-KNN_fit = KNN.fit(X_train, Y_train)
-NB_fit = NB.fit(X_train, Y_train)
-LSVM_fit = LSVM.fit(X_train, Y_train)
-NLSVM_fit = NLSVM.fit(X_train, Y_train)
-DT_fit = DT.fit(X_train, Y_train)
-RF_fit = RF.fit(X_train, Y_train)
-LR_pred = LR_fit.predict(X_test)
-KNN_pred = KNN_fit.predict(X_test)
-NB_pred = NB_fit.predict(X_test)
-LSVM_pred = LSVM_fit.predict(X_test)
-NLSVM_pred = NLSVM_fit.predict(X_test)
-DT_pred = DT_fit.predict(X_test)
-RF_pred = RF_fit.predict(X_test)
-from sklearn.metrics import accuracy_score
-print("Logistic Regression is %(f) percent accurate" % (accuracy_score(LR_pred, 
-Y_test)*100))
-print("KNN is %(f) percent accurate" % (accuracy_score(KNN_pred, Y_test)*100))
-print("Naive Bayes is %(f) percent accurate" % (accuracy_score(NB_pred, Y_test)*100))
-print("Linear SVMs is %(f) percent accurate" % (accuracy_score(LSVM_pred, Y_test)*100))
-print("Non Linear SVMs is %(f) percent accurate" % (accuracy_score(NLSVM_pred, 
-Y_test)*100))
-print("Decision Trees is %(f) percent accurate" % (accuracy_score(DT_pred, Y_test)*100))
-print("Random Forests is %(f) percent accurate" % (accuracy_score(RF_pred, Y_test)*100))  
+X=np.array(([2,9],[1,5],[3,6]),dtype=float)
+Y=np.array(([92],[86],[89]),dtype=float)
+
+X=X/np.amax(X,axis=0)
+Y=Y/100;
+
+class NN(object):
+  def __init__(self):
+    self.inputsize=2
+    self.outputsize=1
+    self.hiddensize=3
+    self.W1=np.random.randn(self.inputsize,self.hiddensize)
+    self.W2=np.random.randn(self.hiddensize,self.outputsize)
+
+  def forward(self,X):
+    self.z=np.dot(X,self.W1)
+    self.z2=self.sigmoidal(self.z)
+    self.z3=np.dot(self.z2,self.W2)
+    op=self.sigmoidal(self.z3)
+    return op;
+
+  def sigmoidal(self,s):
+    return 1/(1+np.exp(-s))
+
+  def sigmoidalprime(self,s):
+    return s* (1-s)
+
+  def backward(self,X,Y,o):
+    self.o_error=Y-o
+    self.o_delta=self.o_error * self.sigmoidalprime(o)
+    self.z2_error=self.o_delta.dot(self.W2.T)
+    self.z2_delta=self.z2_error * self.sigmoidalprime(self.z2)
+    self.W1 = self.W1 + X.T.dot(self.z2_delta)
+    self.W2= self.W2+ self.z2.T.dot(self.o_delta)
+
+  def train(self,X,Y):
+    o=self.forward(X)
+    self.backward(X,Y,o)
+
+obj=NN()
+for i in range(2000):
+  obj.train(X,Y)
+
+print("input"+str(X))
+print("Actual output"+str(Y))
+print("Predicted output"+str(obj.forward(X)))
+print("loss"+str(np.mean(np.square(Y-obj.forward(X)))))
+  
 
 ''')
   
 def p9b():
   print('''
 
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-customer_data = pd.read_csv("Mall_Customers.csv")
-# customer_data.shape
-customer_data.head()
-data = customer_data.iloc[:, 3:5].values
-import scipy.cluster.hierarchy as shc
-plt.figure(figsize=(10, 7))
-plt.title("Customer Dendograms")
-dend = shc.dendrogram(shc.linkage(data, method='ward'))
-from sklearn.cluster import AgglomerativeClustering
-cluster = AgglomerativeClustering(n_clusters=5, linkage='ward')
-cluster.fit_predict(data)
-plt.figure(figsize=(10,7))
-plt.scatter(data[:,0], data[:,1], c=cluster.labels_, cmap='rainbow')
-plt.show() 
+
+dataset = pd.read_csv('C:/Users/HP/Downloads/Restaurant_Reviews.tsv', delimiter = '\t', quoting = 3)
+
+import re
+import nltk #pip install nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+corpus = []
+
+
+for i in range(0,1000):
+  review = re.sub('[^a-zA-Z]','',dataset['Review'][i])
+  review = review.lower()
+  review = review.split()
+  ps = PorterStemmer()
+  review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
+  review = ''.join(review)
+  corpus.append(review)
+
+
+#Creating the bag of words model
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(max_features=1500)
+X = cv.fit_transform(corpus).toarray()
+Y = dataset.iloc[:,1].values
+
+
+#Splitting the dataset into the training set and test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.25, random_state=100)
+
+
+#Fitting naive bayes to the training set.
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(X_train, Y_train)
+
+# Predicting the test set results.
+Y_pred = classifier.predict(X_test)
+
+
+#Model Accuracy
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix
+print("Accuracy:",metrics.accuracy_score(Y_test, Y_pred))
+
+#Making the confusion matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(Y_test, Y_pred)
+print(cm)
+
 
 
 ''')
   
-def p10():
+def p10a():
   print('''
 
-class ClothesAgent:
-    def __init__(self):
-        self.weather = None
- 
-    def get_weather(self):
-        #Simulating weather conditions(you can modify this as needed)
-        self.weather = input("Enter the weather(sunny,rainy,windy,snow):").lower()
- 
-    def suggest_clothes(self):
-        if self.weather == "sunny":
-            print("It's sunny outside. You should wear light clothes,sunglasses, and sunscreen.")
-        elif self.weather == "rainy":
-            print("It's rainy outside. Don't forget an umbrella, raincoat,and waterproof shoes.")
-        elif self.weather == "windy":
-            print("It's windy outside. Wear layers and a jacket to stay warm.")
-        elif self.weather == "snowy":
-            print("It's snowy outside. Dress warmly with a heavy coat,gloves and boots.")
-        else:
-            print("Sorry,I don't understand the weather condition. Please enter sunny,rainy,windy or snowy.")
- 
-def main():
-    agent=ClothesAgent()
-    agent.get_weather()
-    agent.suggest_clothes()
- 
-if __name__ == "__main__":
-    main()
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+#Load the dataset
+df = pd.read_csv("Iris.csv")
+
+#quick look into the data
+print(df.head(5))
+
+#Separate data and label
+x = df.drop(['variety'], axis=1)
+y = df['variety']
+
+#Prepare data for classification process
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
+
+#Create a model , p = 2 => Euclidean Distance:
+knn = KNeighborsClassifier(n_neighbors = 6, p = 2, metric='minkowski')
+
+#Train the model
+knn.fit(x_train, y_train)
+
+# Calculate the accuracy of the model
+print(knn.score(x_test, y_test))
+y_pred = knn.predict(x_test)
+
+#confusion matrix 
+from sklearn.metrics import  confusion_matrix
+cm=np.array(confusion_matrix(y_test,y_pred))
+print(cm)
+
+#Create a model , p = 1 => Manhattan Distance
+knn = KNeighborsClassifier(n_neighbors = 6, p = 1, metric='minkowski')
+
+#Train the model
+knn.fit(x_train, y_train)
+
+# Calculate the accuracy of the model
+print(knn.score(x_test, y_test))
+y_pred = knn.predict(x_test)
+
+#confusion matrix 
+from sklearn.metrics import  confusion_matrix
+cm=np.array(confusion_matrix(y_test,y_pred))
+print(cm)
+
+#Create a model ,p = ∞, Chebychev Distance
+#let ∞ = 10000
+knn = KNeighborsClassifier(n_neighbors = 6, p = 10000, metric='minkowski')
+
+#Train the model
+knn.fit(x_train, y_train)
+
+# Calculate the accuracy of the model
+print(knn.score(x_test, y_test))
+y_pred = knn.predict(x_test)
+
+#confusion matrix 
+from sklearn.metrics import  confusion_matrix
+cm=np.array(confusion_matrix(y_test,y_pred))
+print(cm)
+
 
 
 ''')
 
 
-def p11():
+def p10b():
   print('''
 
-def sentenceSegment(text):
-    sentences = []
-    start = 0
-    for i in range(len(text)):
-        if text[i] == '.' or text[i] == '!' or text[i] == '?':
-            sentences.append(text[start:i+1].strip())
-            start = i + 1
-    return sentences
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import sklearn
 
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later." 
-print(sentenceSegment(text))
-import nltk
-nltk.download('punkt')
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later."
-sentences = nltk.sent_tokenize(text)
-print(sentences)
-import string
-def remove_punctuation(input_string):
-    punctuations = string.punctuation
-    output_string = "".join(char for char in input_string if char not in punctuations)
-    return output_string
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later."
-sentences = sentenceSegment(text)
-puncRemovedText = remove_punctuation(text)
-print(puncRemovedText)
- 
-def convertToLower(s):
-  return s.lower()
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later."
-puncRemovedText = remove_punctuation(text)
- 
-lowerText = convertToLower(puncRemovedText)
-print(lowerText)
-def tokenize(s):
-  words = [] 
-  i = 0
-  word = ""
-  while(i <len(s)):
-    if (s[i] != " "):
-      word = word+s[i]
-    else:
-        words.append(word)
-        word = ""
- 
-    i = i + 1
-  words.append(word)
-  return words
+#Import the dataset and slice the important features
+dataset = pd.read_csv('Mall_Customers.csv')
+X = dataset.iloc[:, [3,4]].values
 
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later."
-puncRemovedText = remove_punctuation(text)
-lowerText = convertToLower(puncRemovedText)
- 
-tokenizedText = tokenize(lowerText)
-print(tokenizedText)
-import nltk
-text = "Hello, NLP world!! In this example, we are going to do the basics of Text processing which will be used later."
-sentences = nltk.sent_tokenize(text)
-puncRemovedText = remove_punctuation(text)
-lowerText = convertToLower(puncRemovedText) 
-tokens = nltk.word_tokenize(lowerText)
-print(tokens)
-import nltk 
-sentence = "We're going to John's house today."
-tokens = nltk.word_tokenize(sentence)
-print(tokens)
+#Find the optimal k value for clustering the data.
+from sklearn.cluster import KMeans
+wcss = []
+for i in range(1,11):
+    kmeans = KMeans(n_clusters=i, init='k-means++',random_state=42)
+    kmeans.fit(X)
+    wcss.append(kmeans.inertia_)
+    
+plt.plot(range(1,11),wcss)
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.show() 
+
+#The point at which the elbow shape is created is 5.
+kmeans = KMeans(n_clusters=5,init="k-means++",random_state=42)
+y_kmeans = kmeans.fit_predict(X)
+
+plt.scatter(X[y_kmeans == 0,0], X[y_kmeans == 0,1], s = 60, c = 'red', label = 'Cluster1')
+plt.scatter(X[y_kmeans == 1,0], X[y_kmeans == 1,1], s = 60, c = 'blue', label = 'Cluster2')
+plt.scatter(X[y_kmeans == 2,0], X[y_kmeans == 2,1], s = 60, c = 'green', label = 'Cluster3')
+plt.scatter(X[y_kmeans == 3,0], X[y_kmeans == 3,1], s = 60, c = 'violet', label = 'Cluster4')
+plt.scatter(X[y_kmeans == 4,0], X[y_kmeans == 4,1], s = 60, c = 'yellow', label = 'Cluster5')
+plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],s=100,c='black',label='Centroids')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100')
+plt.legend()
+plt.show() 
+
 
 
 ''')
