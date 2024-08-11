@@ -1,804 +1,643 @@
-def p1():
-  print('''
+def dl_index():
+    print('''
+  
+  dl_p1a: matrix multiplication and finding eigen vectors
+  dl_p1b: Random Matrix
+  dl_p2:  Solving XOR problem using deep feed forward network
+  dl_p3:  Implementing deep neural network for performing binary classification task.
+  dl_p4a: Using Feed Forward Network with multiple hidden layers for performing multiclass classification and predicting the class.
+  dl_p4b: Using a deep feed forward network with two hidden layers for performing classification and predicting the probability of class.
+  dl_p5a: Evaluating feed forward deep network for regression using KFold cross validation.
+  dl_p5b: Evaluating feed forward deep network for multiclass Classification using KFold cross-validation.
+  dl_p6a: Implement 12 regularization with alpha=0.001
+  dl_p6b: Evaluating feed forward deep network for multiclass Classification using KFold cross-validation.
+  dl_p6c: Replace 12 regularization with l1 regularization.
+  dl_p7:  Demonstrate recurrent neural network that learns to perform sequence analysis for stock price.
+  dl_p8:  Performing encoding and decoding of images using deep autoencoder.
+  dl_p9:  Implementation of convolutional neural network to predict numbers from number
+  dl_p10: Denoising of images using autoencoder.
 
-import numpy
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
+  
+  ''')
 
-numpy.random.seed(2)
 
-x = numpy.random.normal(3, 1, 100)
+# def nlp_index():
+#     print('''
+#
+#   dl_p1a: matrix multiplication and finding eigen vectors
+#   dl_p1b: Random Matrix
+#   dl_p2:  Solving XOR problem using deep feed forward network
+#   dl_p3:  Implementing deep neural network for performing binary classification task.
+#   dl_p4a: Using Feed Forward Network with multiple hidden layers for performing multiclass classification and predicting the class.
+#   dl_p4b: Using a deep feed forward network with two hidden layers for performing classification and predicting the probability of class.
+#   dl_p5a: Evaluating feed forward deep network for regression using KFold cross validation.
+#   dl_p5b: Evaluating feed forward deep network for multiclass Classification using KFold cross-validation.
+#   dl_p6a: Implement 12 regularization with alpha=0.001
+#   dl_p6b: Evaluating feed forward deep network for multiclass Classification using KFold cross-validation.
+#   dl_p6c: Replace 12 regularization with l1 regularization.
+#   dl_p7:  Demonstrate recurrent neural network that learns to perform sequence analysis for stock price.
+#   dl_p8:  Performing encoding and decoding of images using deep autoencoder.
+#   dl_p9:  Implementation of convolutional neural network to predict numbers from number
+#   dl_p10: Denoising of images using autoencoder.
+#
+#
+#   ''')
+
+
+def dl_p1a():
+    print('''
+
+import tensorflow as tf
+print("Matrix Multiplication Demo")
+x=tf.constant([1,2,3,4,5,6],shape=[2,3])
 print(x)
-y = numpy.random.normal(150, 40, 100) / x
+y=tf.constant([7,8,9,10,11,12],shape=[3,2])
 print(y)
-plt.scatter(x, y)
-plt.show()
-train_x = x[:80]
-train_y = y[:80]
-test_x = x[:20]
-test_y = y[:20]
-print(train_x, train_y, test_x, test_y)
-plt.scatter(train_x, train_y)
-plt.show()
-train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.3)
-plt.scatter(test_x, test_y)
-plt.show()
-mymodel = numpy.poly1d(numpy.polyfit(train_x, train_y, 4))
-myline = numpy.linspace(0, 6, 200)
-plt.scatter(train_x, train_y)
-plt.plot(myline, mymodel(myline))
-plt.show()
-mymodel = numpy.poly1d(numpy.polyfit(test_x, test_y, 4))
-myline = numpy.linspace(0, 6, 200)
-plt.scatter(test_x, test_y)
-plt.plot(myline, mymodel(myline))
-plt.show()
-r2 = r2_score(train_y, mymodel(train_x))
-print(r2)
-print(mymodel(5))
+z=tf.matmul(x,y)
+print("Product:",z)
+e_matrix_A=tf.random.uniform([2,2],minval=3,maxval=10,dtype=tf.float32,name="matrixA")
+print("Matrix A:\\n{}\\n\\n".format(e_matrix_A))
+eigen_values_A,eigen_vectors_A=tf.linalg.eigh(e_matrix_A)
+print("Eigen Vectors:\\n{}\\n\\nEigen Values:\\n{}\\n".format(eigen_vectors_A,eigen_values_A))
 
 
 ''')
-  
 
 
-def p2():
-  print('''
+def dl_p1b():
+    print('''
 
-import csv
-a = []
-with open("C:/Users/HP/Downloads/data.csv", 'r') as csvfile:
-    next(csvfile)
-    for row in csv.reader(csvfile):
-        a.append(row)
-    print(a)
-
-print("The total number of training instances are : ",len(a))
-
-num_attribute = len(a[0])-1
-
-print("The initial hypothesis is : ")
-hypothesis = ['0']*num_attribute
-print(hypothesis)
-
-for i in range(0, len(a)):
-    if a[i][num_attribute] == 'yes':
-        print ("Instance ", i+1, "is", a[i], " and is Positive Instance")
-        for j in range(0, num_attribute):
-            if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:
-                hypothesis[j] = a[i][j]
-            else:
-                hypothesis[j] = '?'
-        print("The hypothesis for the training instance", i+1, " is: " , hypothesis)
-
-    if a[i][num_attribute] == 'no':
-        print ("Instance ", i+1, "is", a[i], " and is Negative Instance Hence Ignored")
-        print("The hypothesis for the training instance", i+1, " is: " , hypothesis)
-
-print("The Maximally specific hypothesis for the training instance is ", hypothesis) 
+import tensorflow as tf
+random_matrix = tf.random.uniform(shape=[3, 3], minval=1, maxval=10)
+eigenvalues, eigenvectors = tf.linalg.eigh(random_matrix)
+# Print the results
+print("Random Matrix:\\n", random_matrix.numpy())
+print("\\nEigenvalues:\\n", eigenvalues.numpy())
+print("\\nEigenvectors:\\n", eigenvectors.numpy())
 
 
 
 ''')
 
 
-def p3a():
-  print('''
-
-#(iris)
-from sklearn import svm, datasets
-import sklearn.model_selection as model_selection
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns #pip install seaborn
-
-iris = datasets.load_iris()
-#iris = datasets.load_wine()
-
-X = iris.data[:, :2]
-y = iris.target
-X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, train_size=0.80, test_size=0.20, random_state=101)
-
-rbf = svm.SVC(kernel='rbf', gamma=0.5, C=0.1).fit(X_train, y_train)
-poly = svm.SVC(kernel='poly', degree=3, C=1).fit(X_train, y_train)
-
-poly_pred = poly.predict(X_test)
-rbf_pred = rbf.predict(X_test)
-
-poly_accuracy = accuracy_score(y_test, poly_pred)
-poly_f1 = f1_score(y_test, poly_pred, average='weighted')
-print('Accuracy (Polynomial Kernel): ', "%(.2f)" % (poly_accuracy*100))
-print('F1 (Polynomial Kernel): ', "%(.2f)" % (poly_f1*100))
-
-rbf_accuracy = accuracy_score(y_test, rbf_pred)
-rbf_f1 = f1_score(y_test, rbf_pred, average='weighted')
-print('Accuracy (RBF Kernel): ', "%(.2f)" % (rbf_accuracy*100))
-print('F1 (RBF Kernel): ', "%(.2f)" % (rbf_f1*100)) 
-
-# Calculate the confusion matrix for the Polynomial Kernel model
-poly_confusion_matrix = confusion_matrix(y_test, poly_pred)
-print('Confusion Matrix (Polynomial Kernel):', poly_confusion_matrix)
-
-# Create a heatmap of the confusion matrix for Polynomial Kernel
-plt.figure(figsize=(8, 6))
-sns.heatmap(poly_confusion_matrix, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix (Polynomial Kernel)')
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show()
-
-# Calculate the confusion matrix for the RBF Kernel model
-rbf_confusion_matrix = confusion_matrix(y_test, rbf_pred)
-print('Confusion Matrix (RBF Kernel):', rbf_confusion_matrix)
-
-# Create a heatmap of the confusion matrix for RBF Kernel
-plt.figure(figsize=(8, 6))
-sns.heatmap(rbf_confusion_matrix, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix (RBF Kernel)')
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show() 
-
-
-
-
-''')
-  
-def p3b():
-  print('''
-
-#(wine)
-
-
-from sklearn import svm, datasets
-import sklearn.model_selection as model_selection
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns 
-
-#iris = datasets.load_iris()
-wine = datasets.load_wine()
-
-X = wine.data[:, :2]
-y = wine.target
-X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, train_size=0.80, test_size=0.20, random_state=101)
-
-rbf = svm.SVC(kernel='rbf', gamma=0.5, C=0.1).fit(X_train, y_train)
-poly = svm.SVC(kernel='poly', degree=3, C=1).fit(X_train, y_train)
-
-poly_pred = poly.predict(X_test)
-rbf_pred = rbf.predict(X_test)
-
-poly_accuracy = accuracy_score(y_test, poly_pred)
-poly_f1 = f1_score(y_test, poly_pred, average='weighted')
-print('Accuracy (Polynomial Kernel): ', "%(.2f)" % (poly_accuracy*100))
-print('F1 (Polynomial Kernel): ', "%(.2f)" % (poly_f1*100))
-
-rbf_accuracy = accuracy_score(y_test, rbf_pred)
-rbf_f1 = f1_score(y_test, rbf_pred, average='weighted')
-print('Accuracy (RBF Kernel): ', "%(.2f)" % (rbf_accuracy*100))
-print('F1 (RBF Kernel): ', "%(.2f)" % (rbf_f1*100))
-
-
-# Calculate the confusion matrix for the Polynomial Kernel model
-poly_confusion_matrix = confusion_matrix(y_test, poly_pred)
-print('Confusion Matrix (Polynomial Kernel):', poly_confusion_matrix)
-
-# Create a heatmap of the confusion matrix for Polynomial Kernel
-plt.figure(figsize=(8, 6))
-sns.heatmap(poly_confusion_matrix, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix (Polynomial Kernel)')
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show()
-
-# Calculate the confusion matrix for the RBF Kernel model
-rbf_confusion_matrix = confusion_matrix(y_test, rbf_pred)
-print('Confusion Matrix (RBF Kernel):', rbf_confusion_matrix)
-
-# Create a heatmap of the confusion matrix for RBF Kernel
-plt.figure(figsize=(8, 6))
-sns.heatmap(rbf_confusion_matrix, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix (RBF Kernel)')
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show() 
-
-
-
-''')
-  
-  
-  
-def p4():
-  print('''
+def dl_p2():
+    print('''
 
 import numpy as np
-import pandas as pd
-
-#Loading data from a csv file.
-data = pd.DataFrame(data=pd.read_csv('data.csv'))
-print(data)
-
-print("############################################################")
-#Separating concept features from Target
-concepts = np.array(data.iloc[:,0:6])
-print(concepts)
-
-print("############################################################")
-#Isolating target into a separate DataFrame
-#Copying last column to target  array
-target = np.array(data.iloc[:,6])
-print(target) 
-
-print("############################################################")
-
-def learn(concepts, target): 
-#Initialise S0 with the first instance from concepts.
-#.copy()makes sure a new list is created instead of just pointing to the same memory location.
-    specific_h = concepts[0].copy()
-    print("\(n)Initialization of specific_h and genearal_h")
-    print("\(n)Specific Boundary: ", specific_h)
-    general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
-    print("\(n)Generic Boundary: ",general_h)  
-# The learning iterations.
-    for i, h in enumerate(concepts):
-        print("\(n)Instance", i+1 , "is ", h)
-# Checking if the hypothesis has a positive target.
-        if target[i] == "yes":
-            print("Instance is Positive ")
-            for x in range(len(specific_h)): 
-# Change values in S & G only if values change.
-                if h[x]!= specific_h[x]:                    
-                    specific_h[x] ='?'                     
-                    general_h[x][x] ='?'
-# Checking if the hypothesis has a positive target.                  
-        if target[i] == "no":            
-            print("Instance is Negative ")
-            for x in range(len(specific_h)): 
-# For negative hypothesis change values only in G.
-                if h[x]!= specific_h[x]:                    
-                    general_h[x][x] = specific_h[x]                
-                else:                    
-                    general_h[x][x] = '?'        
-        
-        print("Specific Bundary after ", i+1, "Instance is ", specific_h)         
-        print("Generic Boundary after ", i+1, "Instance is ", general_h)
-# find indices where we have empty rows, meaning those that are unchanged.
-    indices = [i for i, val in enumerate(general_h) if val == ['?', '?', '?', '?', '?', '?']]    
-    for i in indices:   
-# remove those rows from general_h
-        general_h.remove(['?', '?', '?', '?', '?', '?']) 
-# Return final values
-    return specific_h, general_h 
-
-s_final, g_final = learn(concepts, target)
-print("Final Specific_h: ", s_final, sep="\(n)")
-print("Final General_h: ", g_final, sep="\(n)")
+from keras.layers import Dense
+from keras.models import Sequential
+model=Sequential()
+model.add(Dense(units=2,activation='relu',input_dim=2))
+model.add(Dense(units=1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+print(model.summary())
+print(model.get_weights())
+X=np.array([[0.,0.],[0.,1.],[1.,0.],[1.,1.]])
+Y=np.array([0.,1.,1.,0.])
+model.fit(X,Y,epochs=1000,batch_size=4)
+print(model.get_weights())
+print(model.predict(X,batch_size=4))
 
 
 
 ''')
 
 
-def p5():
-  print('''
+def dl_p3():
+    print('''
 
-import numpy as np
+#!pip install keras
+from keras.models import Sequential
+from keras.layers import Dense
 import pandas as pd
-from sklearn import datasets
-
-#Load dataset
-wine = datasets.load_wine()
-
-#print (wine) #if you want to see the data you can print data
-#print the name of the 13 features
-#print("Features: ", wine.feature_names) 
-
-#print the label type of wine
-print("Labels: ", wine.target_names)
-X=pd.DataFrame(wine['data'])
-print(X.head())
-print(wine.data.shape)
-
-#print the wine labels (0:Class_0, 1:class_2, 2:class_2)
-y= wine.target
-print("y=",y)
-
-
-#import train_test_split function
+names =["No. of pregnancies","Glucose level","Blood Pressure","skin thickness","Insulin","BMI","Diabetes pedigree","Age","Class"]
+df=pd.read_csv("pima-indians-diabetes.data.csv",names = names)
+print(df.head(3))
+binaryc = Sequential()
+from tensorflow.tools.docs.doc_controls import doc_in_current_and_subclasses
+binaryc.add(Dense(units=10,activation='relu',input_dim=8))
+binaryc.add(Dense(units=8,activation='relu'))
+binaryc.add(Dense(units=1,activation='sigmoid'))
+binaryc.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+X =df.iloc[:,:-1]
+y = df.iloc[:,-1]
 from sklearn.model_selection import train_test_split
-#split dataset into training set and test set.
-X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.30,random_state=10)
-
-#import gaussian naive bayes model.
-from sklearn.naive_bayes import GaussianNB
-#create a gaussian classifier
-gnb = GaussianNB()
-#train the model using the training sets
-gnb.fit(X_train,y_train)
-print("")
-print("#############################################################")
-print("")
-#predict the response for test dataset
-y_pred = gnb.predict(X_test)
-print(y_pred) 
-
-from sklearn import metrics
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
-#confusion matrix
-from sklearn.metrics import confusion_matrix
-cm=np.array(confusion_matrix(y_test,y_pred))
-print(cm) 
+xtrain,xtest,ytrain,ytest = train_test_split(X,y,test_size = 0.25, random_state=1)
+xtrain.shape
+ytrain.shape
+binaryc.fit(xtrain,ytrain,epochs=200,batch_size=20)
+predictions=binaryc.predict(xtest)
+predictions.shape
+class_labels=[]
+for i in predictions:
+    if(i>0.5):
+        class_labels.append(1)
+    else:
+        class_labels.append(0)
+class_labels
+from sklearn.metrics import accuracy_score
+print('Accuracy Score', accuracy_score(ytest,class_labels))
 
 
 
 ''')
-  
-def p6():
-  print('''
+
+
+def dl_p4a():
+    print('''
 
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-#%matplotlib inline
-
-df = pd.read_csv("C:/Users/HP/Downloads/WA_Fn-UseC_-HR-Employee-Attrition.csv") 
-#Keeping emp position unaffects.
+from keras.models import Sequential
+from keras.layers import Dense
+df=pd.read_csv("flowers.csv")
 print(df.head())
-
-#Exploratory Data Analysis
-sns.countplot(x='Attrition', data=df)
-plt.show()
-
-from pandas.core.arrays import categorical
-df.drop(['EmployeeCount','EmployeeNumber', 'Over18', 'StandardHours'], axis="columns", inplace=True)
-categorical_col = []
-for column in df.columns:
-  if df[column].dtype == object:
-    categorical_col.append(column)
-
-df['Attrition'] = df.Attrition.astype("category").cat.codes
-
+X =df.iloc[:,:-1].astype(float)
+y = df.iloc[:,-1]
+print(X.shape) ##print not necessary
+print(y.shape) ##print not necessary
 from sklearn.preprocessing import LabelEncoder
-for column in categorical_col:
-  df[column] = LabelEncoder().fit_transform(df[column])
+lb = LabelEncoder()
+y = lb.fit_transform(y)
+print(y)
+##print not necessary
+from tensorflow.keras.utils import to_categorical
+encoded_Y = to_categorical(y)
+print(encoded_Y) ##print not necessary
+model = Sequential()
+model.add(Dense(8,activation='relu',input_dim=4))
+model.add(Dense(6,activation='relu'))
+model.add(Dense(3,activation='softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='adam')
+odel.fit(X,encoded_Y,epochs=100,batch_size=10)
+predictions = model.predict(X)
+for i in range(35,130,3):
+    print(predictions[i],encoded_Y[i])
+import numpy as np
+a =[]
+for i in range(0,150):
+    a.append(np.argmax(predictions[i]))
+newdf = pd.DataFrame(list(zip(a,y)),columns = ['Predicted','True Label'])
+print(newdf)
 
 
-from sklearn.model_selection import train_test_split
-X = df.drop('Attrition', axis=1)
-y = df.Attrition
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-from sklearn.metrics import (accuracy_score, log_loss, classification_report, confusion_matrix)
-def print_score(clf, X_train, y_train, X_test, y_test, train=True):
-  if train:
-    pred = clf.predict(X_train)
-    clf_report = pd.DataFrame(classification_report(y_train, pred, output_dict=True))
-    print("Train Result:\(n)=======================================")
-    print(f"Accuracy Score: {accuracy_score(y_train, pred) * 100:.2f}%")
-    print("____________________________________")
-    print(f"CLASSIFICATION REPORT:\(n){clf_report}")
-    print("____________________________________")
-    print(f"Confusion Matrix: \(n){confusion_matrix(y_train, pred)}\(n)")
-
-  elif train==False:
-    pred = clf.predict(X_test)
-    clf_report = pd.DataFrame(classification_report(y_test, pred, output_dict=True))
-    print("Test Result:\(n)=======================================")
-    print(f"Accuracy Score: {accuracy_score(y_test, pred) * 100:.2f}%")
-    print("____________________________________")
-    print(f"CLASSIFICATION REPORT:\(n){clf_report}")
-    print("____________________________________")
-    print(f"Confusion Matrix: \(n){confusion_matrix(y_test, pred)}\(n)") 
-
-### Decision Tree Classifier ###
-from sklearn.tree import DecisionTreeClassifier
-from pickle import TRUE
-from sklearn.tree import DecisionTreeClassifier
-
-tree_clf = DecisionTreeClassifier(random_state=42)
-tree_clf.fit(X_train, y_train)
-print_score(tree_clf, X_train,y_train, X_test, y_test, train=True)
-print_score(tree_clf, X_train,y_train, X_test, y_test, train=False) 
+''')
 
 
-### Random Forest Classifier ###
-from sklearn.ensemble import RandomForestClassifier
+def dl_p4b():
+    print('''
 
-rf_clf = RandomForestClassifier(random_state=42)
-rf_clf.fit(X_train, y_train)
-print_score(rf_clf, X_train, y_train, X_test, y_test, train=True)
-print_score(rf_clf, X_train, y_train, X_test, y_test, train=False)
-
+from keras.models import Sequential
+from keras.layers import Dense,InputLayer
+from sklearn.datasets import make_blobs
+from sklearn.preprocessing import MinMaxScaler
+X, Y = make_blobs(n_samples=100, centers=2, n_features=2, random_state=1)
+# Normalize data
+scaler = MinMaxScaler()
+scaler.fit(X)
+X =scaler.transform(X)
+# Create model
+model = Sequential()
+model.add(InputLayer(input_shape=(2,)))
+model.add(Dense(4, activation='relu'))
+model.add(Dense(4, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+# Compile model with binary crossentropy loss
+model.compile(loss='binary_crossentropy', optimizer='adam')
+model.fit(X, Y, epochs=500)
+Xnew, Yreal = make_blobs(n_samples=3, centers=2, n_features=2, random_state=1)
+Xnew = scaler.transform(Xnew)
+Ynew = model.predict(Xnew)
+# Convert to class predictions
+Yclass = (Ynew > 0.5).astype(int)
+print(Yclass)
+for i in range(len(Xnew)):
+    print(f"X={Xnew[i]},Predicted_probability={Ynew[i]},Predicted_class={Yclass[i]}")
 
 
 
 ''')
 
 
+def dl_p5a():
+    print('''
 
-  
-def p7():
-  print('''
-
-import numpy as np 
-import pandas as pd 
-url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data' 
-
-names = ['sepal-length','sepal-width','petal-length','petal-width','Class'] 
-dataset = pd.read_csv(url, names=names) 
-print(dataset.head())
-
-#store the features sets into X variables and  
-# the series of corresponding variables in y 
-x=dataset.drop('Class',axis=1) 
-y=dataset['Class'] 
-
-from sklearn.model_selection import train_test_split 
-x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2, random_state=0) 
-
-
-from sklearn.preprocessing import StandardScaler 
-sc = StandardScaler() 
-x_train1 = sc.fit_transform(x_train) 
-x_test1 = sc.transform(x_test) 
-y_train1 = y_train 
-y_test1 = y_test 
- 
-from sklearn.decomposition import PCA 
-pca=PCA() 
-x_train1=pca.fit_transform(x_train1) 
-x_test1=pca.transform(x_test1) 
-explained_variance = pca.explained_variance_ratio_ 
-print(explained_variance) 
-
-pca = PCA(n_components=1)  
-x_train1 = pca.fit_transform(x_train1) 
-x_test1 = pca.transform(x_test1) 
-
-from sklearn.ensemble import RandomForestClassifier 
-classifier = RandomForestClassifier(max_depth=2, random_state=0) 
-classifier.fit(x_train1, y_train1) 
-y_pred=classifier.predict(x_test1) 
-
-from sklearn.metrics import confusion_matrix 
-from sklearn.metrics import accuracy_score 
- 
-cm=confusion_matrix(y_test,y_pred) 
-print(cm) 
-print('Accuracy',accuracy_score(y_test,y_pred)) 
-
-
-
-''')
-
-
-
-def p8a():
-  print('''
-
-# Making imports
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from keras.models import Sequential
+from keras.layers import Dense
+from scikeras.wrappers import KerasRegressor
+# Load the dataset correctly, skipping the first row (header)
+dataframe = pd.read_csv("housing.csv", sep=',', header=0)
+print("Shape of dataset:", dataframe.shape)
+print("First few rows of dataset:")
+print(dataframe.head())
+# Extract features (X) and target variable (Y)
+X =dataframe.drop(columns=['MEDV']).values
+# Features (all columns except 'MEDV')
+Y =dataframe['MEDV'].values
+#Target variable ('MEDV')
+# Check the shape of X (number of features)
+print("Shape of X (features):", X.shape)
+# Define the wider model function
+def wider_model():
+    model = Sequential()
+    model.add(Dense(15,input_dim=X.shape[1], kernel_initializer='normal' , activation='relu'))
+    model.add(Dense(13, kernel_initializer='normal', activation='relu'))
+    model.add(Dense(1, kernel_initializer='normal'))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+    return model
+#Create pipeline with standardization and Keras model
+estimators = []
+estimators.append(('standardize', StandardScaler()))
+estimators.append(('mlp',KerasRegressor(build_fn=wider_model, epochs=10, batch_size=5)))
+pipeline = Pipeline(estimators)
+# Define KFold cross-validation
+kfold = KFold(n_splits=10, shuffle=True, random_state=42)
+try:
+    # Evaluate pipeline using cross-validation
+    results = cross_val_score(pipeline, X, Y, cv=kfold)
+    print("Wider: %.2f (%.2f) MSE" % (results.mean(), results.std()))
+except ValueError as e:
+    print("Error during cross-validation:", e)
+
+
+
+''')
+
+
+def dl_p5b():
+    print('''
+
+from sklearn.datasets import make_classification
+from sklearn.model_selection import KFold
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.utils import to_categorical
+from sklearn.metrics import accuracy_score
+# Generate a random multiclass classification dataset
+X, y = make_classification(n_samples=100,
+n_features=20,
+n_informative=2,
+n_redundant=0,
+n_classes=2,
+n_clusters_per_class=2,
+random_state=42)
+# Convert the target variable to categorical format
+y = to_categorical(y)
+# Define the k-fold cross-validator
+n_splits = 5
+kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+# Define the feed-forward deep network model
+model = Sequential()
+model.add(Dense(64, activation='relu', input_shape=(X.shape[1],)))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(y.shape[1], activation='softmax'))
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+# Perform k-fold cross-validation
+fold_accuracies = []
+for train_index, val_index in kf.split(X):
+    X_train, X_val = X[train_index], X[val_index]
+    y_train, y_val = y[train_index], y[val_index]
+    model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_val, y_val))
+    y_pred_prob = model.predict(X_val)
+    y_pred = y_pred_prob.argmax(axis=1) # Get the predicted class index with highest probability
+    accuracy = accuracy_score(y_val.argmax(axis=1), y_pred)
+    fold_accuracies.append(accuracy)
+# Calculate the mean accuracy across all folds
+mean_accuracy = sum(fold_accuracies) / len(fold_accuracies)
+print(f'Mean accuracy: {mean_accuracy:.2f}')
+
+
+
+''')
+
+
+def dl_p6a():
+    print('''
+
+from matplotlib import pyplot
+from sklearn.datasets import make_moons
+from keras.models import Sequential
+from keras.layers import Dense
+X,Y=make_moons(n_samples=100,noise=0.2,random_state=1)
+n_train=30
+trainX,testX=X[:n_train,:],X[n_train:]
+trainY,testY=Y[:n_train],Y[n_train:]
+#print(trainX)
+#print(trainY)
+#print(testX)
+#print(testY)
+model=Sequential()
+model.add(Dense(500,input_dim=2,activation='relu'))
+model.add(Dense(1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+history=model.fit(trainX,trainY,validation_data=(testX,testY),epochs=4000)
+pyplot.plot(history.history['accuracy'],label='train')
+pyplot.plot(history.history['val_accuracy'],label='test')
+pyplot.legend()
+pyplot.show()
+
+
+''')
+
+
+def dl_p6b():
+    print('''
+
+from matplotlib import pyplot
+from sklearn.datasets import make_moons
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.regularizers import l2
+X,Y=make_moons(n_samples=100,noise=0.2,random_state=1)
+n_train=30
+trainX,testX=X[:n_train,:],X[n_train:]
+trainY,testY=Y[:n_train],Y[n_train:]
+#print(trainX)
+#print(trainY)
+#print(testX)
+#print(testY)
+model=Sequential()
+model.add(Dense(500,input_dim=2,activation='relu',kernel_regularizer=l2(0.001)))
+model.add(Dense(1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+history=model.fit(trainX,trainY,validation_data=(testX,testY),epochs=4000)
+pyplot.plot(history.history['accuracy'],label='train')
+pyplot.plot(history.history['val_accuracy'],label='test')
+pyplot.legend()
+pyplot.show()
+
+
+
+''')
+
+
+def dl_p6c():
+    print('''
+
+from matplotlib import pyplot
+from sklearn.datasets import make_moons
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.regularizers import l1_l2
+X,Y=make_moons(n_samples=100,noise=0.2,random_state=1)
+n_train=30
+trainX,testX=X[:n_train,:],X[n_train:]
+trainY,testY=Y[:n_train],Y[n_train:]
+#print(trainX)
+#print(trainY)
+#print(testX)
+#print(testY)
+model=Sequential()
+model.add(Dense(500,input_dim=2,activation='relu',kernel_regularizer=l1_l2(l1=0.001,l2=0.001)
+))
+model.add(Dense(1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+history=model.fit(trainX,trainY,validation_data=(testX,testY),epochs=4000)
+pyplot.plot(history.history['accuracy'],label='train')
+pyplot.plot(history.history['val_accuracy'],label='test')
+pyplot.legend()
+pyplot.show()
+
+
+''')
+
+
+def p7():
+    print('''
+
+import numpy as np
 import matplotlib.pyplot as plt
-plt.rcParams['figure.figsize'] = (12.0,9.0)
-
-np.random.seed(42)
-X = np.linspace(0, 10, 100)
-Y = 2.5 * X + 1.5 + np.random.normal(0, 2, 100)
-data = pd.DataFrame({'X': X, 'Y': Y})
-
-plt.scatter(X, Y)
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Synthetic Data for Least Square Regression')
+import pandas as pd
+from keras.models import Sequential
+from keras.layers import Dense, LSTM, Dropout
+from sklearn.preprocessing import MinMaxScaler
+# Importing the training dataset
+dataset_train = pd.read_csv('C:/Users/HP/Downloads/Google_Stock_Price_Train.csv')
+training_set = dataset_train.iloc[:, 1:2].values
+# Scaling the training set
+sc = MinMaxScaler(feature_range=(0, 1))
+training_set_scaled = sc.fit_transform(training_set)
+X_train = []
+Y_train = []
+for i in range(60, 1258):
+    X_train.append(training_set_scaled[i-60:i, 0])
+    Y_train.append(training_set_scaled[i, 0])
+X_train, Y_train = np.array(X_train), np.array(Y_train)
+X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+# Building the LSTM model
+regressor = Sequential()
+regressor.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+regressor.add(Dropout(0.2))
+regressor.add(LSTM(units=50, return_sequences=True))
+regressor.add(Dropout(0.2))
+regressor.add(LSTM(units=50, return_sequences=True))
+regressor.add(Dropout(0.2))
+regressor.add(LSTM(units=50))
+regressor.add(Dropout(0.2))
+regressor.add(Dense(units=1))
+# Compiling the model
+regressor.compile(optimizer='adam', loss='mean_squared_error')
+# Fitting the model to the training set
+regressor.fit(X_train, Y_train, epochs=100, batch_size=32)
+# Predicting the stock prices
+dataset_test = pd.read_csv('C:/Users/HP/Downloads/Google_Stock_Price_Test.csv')
+real_stock_price = dataset_test.iloc[:, 1:2].values
+dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis=0)
+inputs = dataset_total[len(dataset_total)- len(dataset_test)- 60:].values
+inputs = inputs.reshape(-1, 1)
+inputs = sc.transform(inputs)
+X_test = []
+for i in range(60, 80):
+    X_test.append(inputs[i-60:i, 0])
+X_test = np.array(X_test)
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+predicted_stock_price = regressor.predict(X_test)
+# Inverse scaling for predicted prices
+predicted_stock_price = sc.inverse_transform(predicted_stock_price)
+plt.plot(real_stock_price, color='red', label='Real Google Stock Price')
+plt.plot(predicted_stock_price, color='blue', label='Predicted Stock Price')
+plt.xlabel('Time')
+plt.ylabel('Google Stock Price')
+plt.legend()
 plt.show()
 
-# Building the model
-X_mean = np.mean(X)
-Y_mean = np.mean(Y)
-
-num = 0
-den = 0
-for i in range(len(X)):
-  num += (X[i] - X_mean)*(Y[i] - Y_mean)
-  den += (X[i] - X_mean)**2
-m = num/den
-c = Y_mean - m*X_mean
-print (m,c)
-
-# Making predictions
-Y_pred = m*X + c
-plt.scatter(X, Y)  # actual
-plt.plot([min(X),max(X)],[min(Y_pred), max(Y_pred)], color='red') #prediction
-plt.show() 
-
 
 
 ''')
 
 
-def p8b():
-  print('''
+def p8():
+    print('''
 
-# Importing the libraries
+import keras
+from keras import layers
+from keras.datasets import mnist
 import numpy as np
+encoding_dim = 32
+input_img = keras.Input(shape=(784,))
+#Input image
+# "encoded" is the encoded representation of the input
+encoded = layers.Dense(encoding_dim, activation='relu')(input_img)
+# "decoded" is the lossy reconstruction of the input
+decoded = layers.Dense(784, activation='sigmoid')(encoded)
+# Creating autoencoder model
+autoencoder = keras.Model(input_img, decoded)
+encoder = keras.Model(input_img, encoded) #Create the encoder model
+encoded_input = keras.Input(shape=(encoding_dim,))
+# Retrieve the last layer of the autoencoder model
+decoder_layer = autoencoder.layers[-1]
+# Create the decoder model
+decoder = keras.Model(encoded_input, decoder_layer(encoded_input))
+autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+# Scale and make train and test dataset
+(X_train, _), (X_test, _) = mnist.load_data()
+X_train = X_train.astype('float32') / 255.
+X_test = X_test.astype('float32') / 255.
+X_train = X_train.reshape((len(X_train), np.prod(X_train.shape[1:])))
+X_test = X_test.reshape((len(X_test), np.prod(X_test.shape[1:])))
+print(X_train.shape)
+print(X_test.shape)
+# Train autoencoder with training dataset
+autoencoder.fit(X_train, X_train,
+epochs=50,
+batch_size=256,
+shuffle=True,
+validation_data=(X_test, X_test))
+encoded_imgs = encoder.predict(X_test)
+decoded_imgs = decoder.predict(encoded_imgs)
 import matplotlib.pyplot as plt
-import pandas as pd
+n =10
+plt.figure(figsize=(40, 4))
+for i in range(10):
+# Howmanydigits we will display
+    ax = plt.subplot(3, 20, i + 1)
+    plt.imshow(X_test[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    ax = plt.subplot(3, 20, i + 1 + 20)
+    # Display original
+    # Display encoded image
+    plt.imshow(encoded_imgs[i].reshape(8, 4)) # Adjust shape if necessary
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    ax = plt.subplot(3, 20, 2 * 20 + i + 1)
+    # Display reconstruction
+    plt.imshow(decoded_imgs[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
 
-# Importing the dataset
-dataset = pd.read_csv('https://raw.githubusercontent.com/mk-gurucharan/Classification/master/DMVWrittenTests.csv')
-X = dataset.iloc[:, [0,1]].values
-Y = dataset.iloc[:,2].values
-print(dataset.head(5))
 
-# Splitting the dataset into the training set and test set.
-from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.25, random_state = 0)
-
-
-from sklearn.preprocessing import StandardScaler
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
-
-
-# Training the logistic regression model on the training set
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression()
-classifier.fit(X_train, Y_train)
-# Predicting the test set results.
-y_pred = classifier.predict(X_test)
-print(y_pred)
-
-# Confusion Matrix and Accuracy.
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(Y_test,y_pred)
-from sklearn.metrics import accuracy_score
-print ("Accuracy:", accuracy_score(Y_test, y_pred))
-print(cm)
 
 
 ''')
 
-def p9a():
-  print('''
 
-import numpy as np
-X=np.array(([2,9],[1,5],[3,6]),dtype=float)
-Y=np.array(([92],[86],[89]),dtype=float)
+def dl_p9():
+    print('''
 
-X=X/np.amax(X,axis=0)
-Y=Y/100;
-
-class NN(object):
-  def __init__(self):
-    self.inputsize=2
-    self.outputsize=1
-    self.hiddensize=3
-    self.W1=np.random.randn(self.inputsize,self.hiddensize)
-    self.W2=np.random.randn(self.hiddensize,self.outputsize)
-
-  def forward(self,X):
-    self.z=np.dot(X,self.W1)
-    self.z2=self.sigmoidal(self.z)
-    self.z3=np.dot(self.z2,self.W2)
-    op=self.sigmoidal(self.z3)
-    return op;
-
-  def sigmoidal(self,s):
-    return 1/(1+np.exp(-s))
-
-  def sigmoidalprime(self,s):
-    return s* (1-s)
-
-  def backward(self,X,Y,o):
-    self.o_error=Y-o
-    self.o_delta=self.o_error * self.sigmoidalprime(o)
-    self.z2_error=self.o_delta.dot(self.W2.T)
-    self.z2_delta=self.z2_error * self.sigmoidalprime(self.z2)
-    self.W1 = self.W1 + X.T.dot(self.z2_delta)
-    self.W2= self.W2+ self.z2.T.dot(self.o_delta)
-
-  def train(self,X,Y):
-    o=self.forward(X)
-    self.backward(X,Y,o)
-
-obj=NN()
-for i in range(2000):
-  obj.train(X,Y)
-
-print("input"+str(X))
-print("Actual output"+str(Y))
-print("Predicted output"+str(obj.forward(X)))
-print("loss"+str(np.mean(np.square(Y-obj.forward(X)))))
+from keras.datasets import mnist
+from keras.utils import to_categorical
+from keras.models import Sequential
+from keras.layers import Dense,Conv2D,Flatten
+import matplotlib.pyplot as plt
+#download mnist data and split into train and test sets
+(X_train,Y_train),(X_test,Y_test)=mnist.load_data()
+#plot the first image in the dataset
+plt.imshow(X_train[0])
+plt.show()
+print(X_train[0].shape)
+X_train=X_train.reshape(60000,28,28,1)
+X_test=X_test.reshape(10000,28,28,1)
+Y_train=to_categorical(Y_train)
+Y_test=to_categorical(Y_test)
+Y_train[0]
+print(Y_train[0])
+model=Sequential()
+#add model layers
+#learn image features
+model.add(Conv2D(64,kernel_size=3,activation='relu',input_shape=(28,28,1)))
+model.add(Conv2D(32,kernel_size=3,activation='relu'))
+model.add(Flatten())
+model.add(Dense(10,activation='softmax'))
+model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+#train
+model.fit(X_train,Y_train,validation_data=(X_test,Y_test),epochs=3)
+print(model.predict(X_test[:4]))
+#actual results for 1st 4 images in the test set
+print(Y_test[:4])
   
 
 ''')
-  
-def p9b():
-  print('''
 
+
+def dl_p10():
+    print('''
+
+import keras
+from keras.datasets import mnist
+from keras import layers
 import numpy as np
+from keras.callbacks import TensorBoard
 import matplotlib.pyplot as plt
-import pandas as pd
-
-dataset = pd.read_csv('C:/Users/HP/Downloads/Restaurant_Reviews.tsv', delimiter = '\t', quoting = 3)
-
-import re
-import nltk #pip install nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
-corpus = []
-
-
-for i in range(0,1000):
-  review = re.sub('[^a-zA-Z]','',dataset['Review'][i])
-  review = review.lower()
-  review = review.split()
-  ps = PorterStemmer()
-  review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
-  review = ''.join(review)
-  corpus.append(review)
-
-
-#Creating the bag of words model
-from sklearn.feature_extraction.text import CountVectorizer
-cv = CountVectorizer(max_features=1500)
-X = cv.fit_transform(corpus).toarray()
-Y = dataset.iloc[:,1].values
-
-
-#Splitting the dataset into the training set and test set
-from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.25, random_state=100)
-
-
-#Fitting naive bayes to the training set.
-from sklearn.naive_bayes import GaussianNB
-classifier = GaussianNB()
-classifier.fit(X_train, Y_train)
-
-# Predicting the test set results.
-Y_pred = classifier.predict(X_test)
-
-
-#Model Accuracy
-from sklearn import metrics
-from sklearn.metrics import confusion_matrix
-print("Accuracy:",metrics.accuracy_score(Y_test, Y_pred))
-
-#Making the confusion matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(Y_test, Y_pred)
-print(cm)
-
-
-
-''')
-  
-def p10a():
-  print('''
-
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
-
-#Load the dataset
-df = pd.read_csv("Iris.csv")
-
-#quick look into the data
-print(df.head(5))
-
-#Separate data and label
-x = df.drop(['variety'], axis=1)
-y = df['variety']
-
-#Prepare data for classification process
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
-
-#Create a model , p = 2 => Euclidean Distance:
-knn = KNeighborsClassifier(n_neighbors = 6, p = 2, metric='minkowski')
-
-#Train the model
-knn.fit(x_train, y_train)
-
-# Calculate the accuracy of the model
-print(knn.score(x_test, y_test))
-y_pred = knn.predict(x_test)
-
-#confusion matrix 
-from sklearn.metrics import  confusion_matrix
-cm=np.array(confusion_matrix(y_test,y_pred))
-print(cm)
-
-#Create a model , p = 1 => Manhattan Distance
-knn = KNeighborsClassifier(n_neighbors = 6, p = 1, metric='minkowski')
-
-#Train the model
-knn.fit(x_train, y_train)
-
-# Calculate the accuracy of the model
-print(knn.score(x_test, y_test))
-y_pred = knn.predict(x_test)
-
-#confusion matrix 
-from sklearn.metrics import  confusion_matrix
-cm=np.array(confusion_matrix(y_test,y_pred))
-print(cm)
-
-#Create a model ,p = ∞, Chebychev Distance
-#let ∞ = 10000
-knn = KNeighborsClassifier(n_neighbors = 6, p = 10000, metric='minkowski')
-
-#Train the model
-knn.fit(x_train, y_train)
-
-# Calculate the accuracy of the model
-print(knn.score(x_test, y_test))
-y_pred = knn.predict(x_test)
-
-#confusion matrix 
-from sklearn.metrics import  confusion_matrix
-cm=np.array(confusion_matrix(y_test,y_pred))
-print(cm)
+(X_train, _), (X_test, _) = mnist.load_data()
+X_train = X_train.astype('float32') / 255.
+X_test = X_test.astype('float32') / 255.
+X_train = np.reshape(X_train, (len(X_train), 28, 28, 1))
+X_test = np.reshape(X_test, (len(X_test), 28, 28, 1))
+noise_factor = 0.5
+X_train_noisy = X_train + noise_factor * np.random.normal(loc=0.0, scale=1.0,
+size=X_train.shape)
+X_test_noisy = X_test + noise_factor * np.random.normal(loc=0.0, scale=1.0,
+size=X_test.shape)
+X_train_noisy = np.clip(X_train_noisy, 0., 1.)
+X_test_noisy = np.clip(X_test_noisy, 0., 1.)
+n =10
+plt.figure(figsize=(20, 2))
+for i in range(1, n + 1):
+    ax = plt.subplot(1, n, i)
+    plt.imshow(X_test_noisy[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
+input_img = keras.Input(shape=(28, 28, 1))
+x =layers.Conv2D(32, (3, 3), activation='relu', padding='same')(input_img)
+x =layers.MaxPooling2D((2, 2), padding='same')(x)
+x =layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+encoded = layers.MaxPooling2D((2, 2), padding='same')(x)
+x =layers.Conv2D(32, (3, 3), activation='relu', padding='same')(encoded)
+x =layers.UpSampling2D((2, 2))(x)
+x =layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+x =layers.UpSampling2D((2, 2))(x)
+decoded = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+autoencoder = keras.Model(input_img, decoded)
+autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+autoencoder.fit(X_train_noisy, X_train,
+    epochs=3,
+    batch_size=128,
+    shuffle=True,
+    validation_data=(X_test_noisy, X_test),
+    callbacks=[TensorBoard(log_dir='/tmo/tb', histogram_freq=0, write_graph=False)])
+predictions = autoencoder.predict(X_test_noisy)
+m=10
+plt.figure(figsize=(20, 2))
+for i in range(1, m + 1):
+    ax = plt.subplot(1, m, i)
+    plt.imshow(predictions[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
 
 
 
 ''')
 
-
-def p10b():
-  print('''
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import sklearn
-
-#Import the dataset and slice the important features
-dataset = pd.read_csv('Mall_Customers.csv')
-X = dataset.iloc[:, [3,4]].values
-
-#Find the optimal k value for clustering the data.
-from sklearn.cluster import KMeans
-wcss = []
-for i in range(1,11):
-    kmeans = KMeans(n_clusters=i, init='k-means++',random_state=42)
-    kmeans.fit(X)
-    wcss.append(kmeans.inertia_)
-    
-plt.plot(range(1,11),wcss)
-plt.xlabel('Number of clusters')
-plt.ylabel('WCSS')
-plt.show() 
-
-#The point at which the elbow shape is created is 5.
-kmeans = KMeans(n_clusters=5,init="k-means++",random_state=42)
-y_kmeans = kmeans.fit_predict(X)
-
-plt.scatter(X[y_kmeans == 0,0], X[y_kmeans == 0,1], s = 60, c = 'red', label = 'Cluster1')
-plt.scatter(X[y_kmeans == 1,0], X[y_kmeans == 1,1], s = 60, c = 'blue', label = 'Cluster2')
-plt.scatter(X[y_kmeans == 2,0], X[y_kmeans == 2,1], s = 60, c = 'green', label = 'Cluster3')
-plt.scatter(X[y_kmeans == 3,0], X[y_kmeans == 3,1], s = 60, c = 'violet', label = 'Cluster4')
-plt.scatter(X[y_kmeans == 4,0], X[y_kmeans == 4,1], s = 60, c = 'yellow', label = 'Cluster5')
-plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],s=100,c='black',label='Centroids')
-plt.xlabel('Annual Income (k$)')
-plt.ylabel('Spending Score (1-100')
-plt.legend()
-plt.show() 
-
-
-
-''')
