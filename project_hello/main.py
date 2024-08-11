@@ -406,7 +406,7 @@ pyplot.show()
 ''')
 
 
-def p7():
+def dl_p7():
     print('''
 
 import numpy as np
@@ -470,7 +470,7 @@ plt.show()
 ''')
 
 
-def p8():
+def dl_p8():
     print('''
 
 import keras
