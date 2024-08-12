@@ -751,7 +751,7 @@ def nlp_p2b():
 import nltk
 from nltk.corpus import PlaintextCorpusReader
 
-corpus_root = r'D:\MSCIT\SEM 4\\2 Natural Language Processing\Practicals\Practical 2'  # Use a raw string for the path
+corpus_root = r'D:\\MSCIT\\SEM 4\\2 Natural Language Processing\\Practicals\\Practical 2'  # Use a raw string for the path
 filelist = PlaintextCorpusReader(corpus_root, '.*')
 
 print('\\n File list: \\n')
@@ -976,12 +976,12 @@ choice = int(input())
 if choice == 1:
     text = "#whatismyname"
     print("input with HashTag", text)
-    pattern = re.compile("[^\w']")
+    pattern = re.compile("[^\\w']")
     a = pattern.sub('', text)
 elif choice == 2:
     text = "www.whatismyname.com"
     print("input with URL", text)
-    a = re.split(r'\s|(?<!\d)[,.](?!\d)', text)
+    a = re.split(r'\\s|(?<!\\d)[,.](?!\\d)', text)
     splitwords = ["www", "com", "in"]
     a = "".join([each for each in a if each not in splitwords])
 else:
@@ -996,7 +996,7 @@ if a:
     test_length = len(testword)
 
     try:
-        with open(r"C:\Users\hp\AppData\Local\Programs\Python\Python310\words.txt", 'r') as f:
+        with open(r"words.txt", 'r') as f:
             lines = f.readlines()
             words = [(e.strip()) for e in lines]
     except FileNotFoundError:
@@ -1237,7 +1237,7 @@ import nltk
 from nltk.tokenize import RegexpTokenizer
 
 # Create a reference variable for Class RegexpTokenizer
-tk = RegexpTokenizer('\s+', gaps = True)
+tk = RegexpTokenizer('\\s+', gaps = True)
 
 # Create a string input
 str = "winner winner chicken dinner"
@@ -1255,7 +1255,7 @@ import nltk
 from nltk.tokenize import RegexpTokenizer
  
 # Create a reference variable for Class RegexpTokenizer
-tk = RegexpTokenizer('\s+', gaps = True)
+tk = RegexpTokenizer('\\s+', gaps = True)
  
 # Create a string input
 str = "There will only one winner, let's go!! "
@@ -1321,7 +1321,7 @@ INDIC_NLP_LIB_HOME=r"indic_nlp_library"
 # The path to the local git repo for Indic NLP Resources
 INDIC_NLP_RESOURCES=r"indic_nlp_resources"
 # Add library to Python path
-sys.path.append(r'{}\src'.format(INDIC_NLP_LIB_HOME))
+sys.path.append(r'{}\\src'.format(INDIC_NLP_LIB_HOME))
 # Set environment variable for resources folder
 common.set_resources_path(INDIC_NLP_RESOURCES)
 from indicnlp.tokenize import indic_tokenize
@@ -1702,7 +1702,6 @@ process_content()
     ''')
 
 
-
 def nlp_p10b():
     print('''
 
@@ -1753,6 +1752,7 @@ for x in obj:
 
     ''')
 
+
 def nlp10c():
     print('''
 
@@ -1760,11 +1760,12 @@ def nlp10c():
  Parse a sentence and draw a tree using malt parsing.
  1. Java should be installed. (system till jdk and path till bin)
  2. maltparser-1.7.2 (https://maltparser.org/dist/maltparser-1.7.2.zip) zip file should be copied in
- C:\\Users\AppData\Local\Programs\Python\Python39 folder and should be
+ C:\\Users\\AppData\\Local\\Programs\\Python\\Python39 folder and should be
  extracted in the same folder.
  3. engmalt.linear-1.7.mco (https://www.maltparser.org/mco/english_parser/engmalt.linear-1.7.mco) & engmalt.poly-1.7.mco (https://www.maltparser.org/mco/english_parser/engmalt.poly-1.7.mco) file should be copied to
- C:\\Users\ AppData\Local\Programs\Python\Python39 folde
+ C:\\Users\\ AppData\\Local\\Programs\\Python\\Python39 folde
     ''')
+
 
 def nlp_p11a():
     print('''
@@ -1772,7 +1773,7 @@ def nlp_p11a():
 from nltk.tokenize import MWETokenizer
 from nltk import sent_tokenize, word_tokenize
 
-s = """Good cake cost Rs.1500\kg in Mumbai. Please buy me one of them.\\n\\nThanks."""
+s = """Good cake cost Rs.1500\\kg in Mumbai. Please buy me one of them.\\n\\nThanks."""
 mwe = MWETokenizer([('New', 'York'), ('Hong', 'Kong')], separator='_')
 
 for sent in sent_tokenize(s):
@@ -2854,6 +2855,7 @@ contract AccessRestriction {
 
       ''')
 
+
 def bc_p5a():
     print('''
 import hashlib
@@ -2978,6 +2980,7 @@ print(blockchain.chain)
 
       ''')
 
+
 def bc_p5b():
     print('''
 // SPDX-License-Identifier: MIT
@@ -3001,6 +3004,7 @@ contract constructors{
 
 
       ''')
+
 
 def bc_p6a():
     print('''
@@ -3056,6 +3060,7 @@ contract SquareContract {
 
       ''')
 
+
 def bc_p6b():
     print('''
 // SPDX-License-Identifier: MIT
@@ -3093,6 +3098,7 @@ contract Test {
 }
 
       ''')
+
 
 def bc_p6c():
     print('''
@@ -3133,6 +3139,7 @@ contract ErrorHandlingExample {
 }
 
       ''')
+
 
 def bc_p9():
     print('''
