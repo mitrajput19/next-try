@@ -1912,7 +1912,6 @@ def bc_index():
 # }
 #     ''')
 #
-
 # def bc_p8():
 #     print('''
 # To check if the prerequisites (Node.js, npm, and Truffle) are installed, you can run the
@@ -2006,96 +2005,96 @@ def bc_index():
 # value.toString() // Output should be '42'
 #     ''')
 #
-
-
-def bc_p7():
-    print('''
-1) Check version and installation (vscode terminal)
-git –-version
-curl –version
-docker –version
-jq –version
-
-2) Download fabric samples
-curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh
-&amp;&amp; chmod +x install-fabric.sh
-3) Pull the docker containers (vscode terminal)
-./install-fabric.sh
-
-4) Navigate to test network directory (vscode terminal)
-ls
-cd fabric-samples
-ls
-cd test-network
-ls
-5) Remove any containers or artifacts (vscode terminal)
-./network.sh down
-6) Up the network (vscode terminal)
-./network.sh up
-
-7) Now open Docker Desktop in backhgrounff
-8) Now Create a channel (vscode terminal)
-./network.sh createChannel
-9) Deploy chaincode on peers and channel (vscode terminal)
-./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
-//(O/P = “approvals”: {
-//“Org1MSP”: true,
-//“Org2MSP”: true
-//})
-10) Now Interacting with the network
-11) Set the path for peer binary and config for core.yaml
-export PATH=${PWD}/../bin:$PATH
-export FABRIC_CFG_PATH=$PWD/../config/
-12) Set the environment variables to operate Peer as Org1 in (vscode)
-export CORE_PEER_TLS_ENABLED=true
-export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
-export
-CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.exampl
-e.com/peers/peer0.org1.example.com/tls/ca.crt
-export
-CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.co
-m/users/Admin@org1.example.com/msp
-export CORE_PEER_ADDRESS=localhost:7051
-13) Command to initialize the ledger with assets
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --
-cafile
-&quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscac
-erts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
-tlsRootCertFiles
-&quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.cr
-t&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
-&quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
-t&quot; -c &#39;{&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]}&#39;
-14) Query the ledger
-peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;GetAllAssets&quot;]}&#39;
-15) Transfer the asset
-peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --
-tls --cafile
-&quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tl
-scacerts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
-tlsRootCertFiles
-&quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/
-ca.crt&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
-
-&quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
-t&quot; -c &#39;{&quot;function&quot;:&quot;TransferAsset&quot;,&quot;Args&quot;:[&quot;asset6&quot;,&quot;Christopher&quot;]}&#39;
-16) Lets query the ledger from Org2 peer
-17) Set the environment variables to operate Peer as Org2
-export CORE_PEER_TLS_ENABLED=true
-export CORE_PEER_LOCALMSPID=&quot;Org2MSP&quot;
-export
-CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.exampl
-e.com/peers/peer0.org2.example.com/tls/ca.crt
-export
-CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.co
-m/users/Admin@org2.example.com/msp
-export CORE_PEER_ADDRESS=localhost:9051
-18) Query the ledger
-peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;ReadAsset&quot;,&quot;asset6&quot;]}&#39;
-19) Bring the network down
-./network.sh down
-    ''')
-
+#
+#
+# def bc_p7():
+#     print('''
+# 1) Check version and installation (vscode terminal)
+# git –-version
+# curl –version
+# docker –version
+# jq –version
+#
+# 2) Download fabric samples
+# curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh
+# &amp;&amp; chmod +x install-fabric.sh
+# 3) Pull the docker containers (vscode terminal)
+# ./install-fabric.sh
+#
+# 4) Navigate to test network directory (vscode terminal)
+# ls
+# cd fabric-samples
+# ls
+# cd test-network
+# ls
+# 5) Remove any containers or artifacts (vscode terminal)
+# ./network.sh down
+# 6) Up the network (vscode terminal)
+# ./network.sh up
+#
+# 7) Now open Docker Desktop in backhgrounff
+# 8) Now Create a channel (vscode terminal)
+# ./network.sh createChannel
+# 9) Deploy chaincode on peers and channel (vscode terminal)
+# ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
+# //(O/P = “approvals”: {
+# //“Org1MSP”: true,
+# //“Org2MSP”: true
+# //})
+# 10) Now Interacting with the network
+# 11) Set the path for peer binary and config for core.yaml
+# export PATH=${PWD}/../bin:$PATH
+# export FABRIC_CFG_PATH=$PWD/../config/
+# 12) Set the environment variables to operate Peer as Org1 in (vscode)
+# export CORE_PEER_TLS_ENABLED=true
+# export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
+# export
+# CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.exampl
+# e.com/peers/peer0.org1.example.com/tls/ca.crt
+# export
+# CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.co
+# m/users/Admin@org1.example.com/msp
+# export CORE_PEER_ADDRESS=localhost:7051
+# 13) Command to initialize the ledger with assets
+# peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --
+# cafile
+# &quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscac
+# erts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
+# tlsRootCertFiles
+# &quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.cr
+# t&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
+# &quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
+# t&quot; -c &#39;{&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]}&#39;
+# 14) Query the ledger
+# peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;GetAllAssets&quot;]}&#39;
+# 15) Transfer the asset
+# peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --
+# tls --cafile
+# &quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tl
+# scacerts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
+# tlsRootCertFiles
+# &quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/
+# ca.crt&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
+#
+# &quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
+# t&quot; -c &#39;{&quot;function&quot;:&quot;TransferAsset&quot;,&quot;Args&quot;:[&quot;asset6&quot;,&quot;Christopher&quot;]}&#39;
+# 16) Lets query the ledger from Org2 peer
+# 17) Set the environment variables to operate Peer as Org2
+# export CORE_PEER_TLS_ENABLED=true
+# export CORE_PEER_LOCALMSPID=&quot;Org2MSP&quot;
+# export
+# CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.exampl
+# e.com/peers/peer0.org2.example.com/tls/ca.crt
+# export
+# CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.co
+# m/users/Admin@org2.example.com/msp
+# export CORE_PEER_ADDRESS=localhost:9051
+# 18) Query the ledger
+# peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;ReadAsset&quot;,&quot;asset6&quot;]}&#39;
+# 19) Bring the network down
+# ./network.sh down
+#     ''')
+#
 
 def bc_p1a():
     print('''
