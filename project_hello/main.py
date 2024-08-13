@@ -1854,6 +1854,7 @@ print ('%s: %s' % (best_synset.name, best_synset.definition))
 def bc_index():
     print('''
 
+  bc_p0: Use Remix IDE to develop &amp; deploy Solidity code on Ethereum VM.
   bc_p1a: A simple client class that generates the private & public keys by using the built in Python RSA algo. and test it
   bc_p1b: A transaction class to send and receive money and test it.
   bc_p1c: Create multiple transactions and display them.
@@ -1879,13 +1880,218 @@ def bc_index():
   bc_p4b: Restricted  Access
   bc_p5a: Contracts and Inheritance
   bc_p5b: Constructors
+  bc_p5c: Abstract Contracts.
+  bc_p5d: Interfaces.
   bc_p6a: Libraries
   bc_p6b: Assembly
   bc_p6c: Error handling.
+  bc_p7: Install Hyperledger Fabric &amp; Composer. Deploy &amp; execute the app
+  bc_p8: Demo the running of a blockchain node.
   bc_p9: Bitcoin API
   
 
 
+    ''')
+
+
+def bc_p0():
+    print('''
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract SimpleStorage {
+uint256 private storedData;
+// Function to set the value of storedData
+function set(uint256 x) public {
+storedData = x;
+}
+// Function to get the value of storedData
+function get() public view returns (uint256) {
+return storedData;
+}
+}
+    ''')
+
+
+def bc_p8():
+    print('''
+To check if the prerequisites (Node.js, npm, and Truffle) are installed, you can run the
+following commands:
+Step 1: Prerequisites
+Install Node.js
+https://nodejs.org/en/download/prebuilt-installer
+Execute the following Commands:
+npm install -g truffle
+npm install -g ganache-cli
+
+1) Check Node.js and npm installation:
+node -v
+npm -v
+2) Check Truffle installation:
+truffle version
+3) Install Ganache
+https://archive.trufflesuite.com/ganache/
+4) Create a new Workspace (pract_bc) in ganache software.
+Step 2: Initialize a Truffle Project
+
+1) Create a new directory for your project:
+mkdir myProj
+cd myProj
+2) Initialize the Truffle project:
+truffle init
+
+Step 3: Create a Solidity Smart Contract
+
+1) Navigate to the Contracts directory(myProj/contracts) in vs code:
+SimpleStorage.sol
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract SimpleStorage {
+uint256 public storedData;
+function set(uint256 x) public {
+storedData = x;
+}
+function get() public view returns (uint256) {
+return storedData;
+}
+}
+2) Compile the Smart Contract in terminal of vs code.
+Command: truffle compile
+C:\Users\\hp\\Pract bc\\myProj&gt; truffle compile
+
+Step 4: Configure Truffle to Use Ganache
+
+Open the truffle-config.js file and configure the development network to use Ganache. Update
+the networks section:
+module.exports = {
+networks: {
+development: {
+host: &quot;127.0.0.1&quot;,
+port: 7545, // Match the port Ganache is using
+network_id: &quot;*&quot; // Match any network id
+}
+},
+compilers: {
+solc: {
+version: &quot;0.8.0&quot; // Specify the Solidity compiler version
+}
+}
+};
+Step 5: Migrate the Smart Contract to Ganache
+1) Start Ganache (open the Ganache application and start a new
+workspace(pract_bc))
+2) Create a migration script in the migrations directory
+(e.g., deploy_contracts.js) (following is code for that):
+\\myProj\\migrations\\2_deploy_contracts.js
+const SimpleStorage = artifacts.require(&quot;SimpleStorage&quot;);
+
+module.exports = function (deployer) {
+deployer.deploy(SimpleStorage);
+};
+
+3) Run the migration (vs code terminal cmd):
+Command: truffle migrate
+//Eg. C:\Users\hp\Pract bc\myProj&gt; truffle migrate
+//(op: saving artifacts)
+
+Step 6: Interact with the Deployed Contract
+1) Open the new command prompt terminal of vscode:
+Command: truffle console
+//C:\Users\hp\Pract bc\myProj&gt; truffle console
+2) Interact with the deployed contract:
+Execute the following commands one-by-one
+let instance = await SimpleStorage.deployed()
+await instance.set(42)
+let value = await instance.get()
+value.toString() // Output should be &#39;42&#39;
+    ''')
+
+
+def bc_p7():
+    print('''
+1) Check version and installation (vscode terminal)
+git –-version
+curl –version
+docker –version
+jq –version
+
+2) Download fabric samples
+curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh
+&amp;&amp; chmod +x install-fabric.sh
+3) Pull the docker containers (vscode terminal)
+./install-fabric.sh
+
+4) Navigate to test network directory (vscode terminal)
+ls
+cd fabric-samples
+ls
+cd test-network
+ls
+5) Remove any containers or artifacts (vscode terminal)
+./network.sh down
+6) Up the network (vscode terminal)
+./network.sh up
+
+7) Now open Docker Desktop in backhgrounff
+8) Now Create a channel (vscode terminal)
+./network.sh createChannel
+9) Deploy chaincode on peers and channel (vscode terminal)
+./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript -ccl javascript
+//(O/P = “approvals”: {
+//“Org1MSP”: true,
+//“Org2MSP”: true
+//})
+10) Now Interacting with the network
+11) Set the path for peer binary and config for core.yaml
+export PATH=${PWD}/../bin:$PATH
+export FABRIC_CFG_PATH=$PWD/../config/
+12) Set the environment variables to operate Peer as Org1 in (vscode)
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
+export
+CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.exampl
+e.com/peers/peer0.org1.example.com/tls/ca.crt
+export
+CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.co
+m/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=localhost:7051
+13) Command to initialize the ledger with assets
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --
+cafile
+&quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscac
+erts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
+tlsRootCertFiles
+&quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.cr
+t&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
+&quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
+t&quot; -c &#39;{&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]}&#39;
+14) Query the ledger
+peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;GetAllAssets&quot;]}&#39;
+15) Transfer the asset
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --
+tls --cafile
+&quot;${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tl
+scacerts/tlsca.example.com-cert.pem&quot; -C mychannel -n basic --peerAddresses localhost:7051 --
+tlsRootCertFiles
+&quot;${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/
+ca.crt&quot; --peerAddresses localhost:9051 --tlsRootCertFiles
+
+&quot;${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.cr
+t&quot; -c &#39;{&quot;function&quot;:&quot;TransferAsset&quot;,&quot;Args&quot;:[&quot;asset6&quot;,&quot;Christopher&quot;]}&#39;
+16) Lets query the ledger from Org2 peer
+17) Set the environment variables to operate Peer as Org2
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=&quot;Org2MSP&quot;
+export
+CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.exampl
+e.com/peers/peer0.org2.example.com/tls/ca.crt
+export
+CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.co
+m/users/Admin@org2.example.com/msp
+export CORE_PEER_ADDRESS=localhost:9051
+18) Query the ledger
+peer chaincode query -C mychannel -n basic -c &#39;{&quot;Args&quot;:[&quot;ReadAsset&quot;,&quot;asset6&quot;]}&#39;
+19) Bring the network down
+./network.sh down
     ''')
 
 
@@ -2994,6 +3200,43 @@ contract constructors{
 
       ''')
 
+def bc_p5c():
+    print('''
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+abstract contract Main {
+    // Define an abstract function that can be overridden
+    function add(uint a, uint b) public virtual pure returns (uint);
+}
+contract Adder is Main {
+    // Override the add function from the Main contract
+    function add(uint a, uint b) public override pure returns (uint) {
+        return a + b;
+    }
+}
+    ''')
+
+
+def bc_p5d():
+    print('''
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+interface University { // Define the interface
+function getDepartment() external pure returns (string memory);
+function getCourses() external pure returns (string[4] memory);
+}
+contract Test is University { // Implement the contract
+function getDepartment() public pure override returns (string memory) {
+return &quot;Information Technology &amp; Data Science&quot;;
+}
+function getCourses() public pure override returns (string[4] memory) {
+return [
+&quot;Image Processing&quot;, &quot;Big Data&quot;, &quot;Networking&quot;, &quot;Machine Learning&quot;
+];
+}
+}
+    ''')
+
 
 def bc_p6a():
     print('''
@@ -3128,6 +3371,33 @@ contract ErrorHandlingExample {
 }
 
       ''')
+
+
+def bc_p6d():
+    print('''
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+contract EventExample { // Define an event
+event Deposit(address indexed from, uint256 amount);
+event Withdraw(address indexed to, uint256 amount);
+// Mapping to keep track of user balances
+mapping(address =&gt; uint256) public balances;
+// Function to deposit ether into the contract
+function deposit() public payable {
+
+require(msg.value &gt; 0, &quot;Must deposit more than 0 ether&quot;);
+balances[msg.sender] += msg.value; // Update the balance
+emit Deposit(msg.sender, msg.value); // Emit the Deposit event
+}
+function withdraw(uint256 amount) public { // Func to withdraw ether sc
+require(balances[msg.sender] &gt;= amount, &quot;Insufficient balance&quot;);
+balances[msg.sender] -= amount; // Update the balance
+payable(msg.sender).transfer(amount); // Transfer the ether
+emit Withdraw(msg.sender, amount); // Emit the Withdraw event
+}
+}
+    ''')
+
 
 
 def bc_p9():
