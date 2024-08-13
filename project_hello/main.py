@@ -1914,7 +1914,7 @@ return storedData;
 
 
 def bc_p8():
-    print(r'''
+    print('''
 To check if the prerequisites (Node.js, npm, and Truffle) are installed, you can run the
 following commands:
 Step 1: Prerequisites
@@ -1957,7 +1957,7 @@ return storedData;
 }
 2) Compile the Smart Contract in terminal of vs code.
 Command: truffle compile
-C:\Users\hp\Pract bc\myProj> truffle compile
+C:\\Users\\hp\\Pract bc\\myProj> truffle compile
 
 Step 4: Configure Truffle to Use Ganache
 
@@ -1982,7 +1982,7 @@ Step 5: Migrate the Smart Contract to Ganache
 workspace(pract_bc))
 2) Create a migration script in the migrations directory
 (e.g., deploy_contracts.js) (following is code for that):
-\myProj\migrations\2_deploy_contracts.js
+\\myProj\\migrations\\2_deploy_contracts.js
 const SimpleStorage = artifacts.require("SimpleStorage");
 
 module.exports = function (deployer) {
@@ -1991,13 +1991,13 @@ deployer.deploy(SimpleStorage);
 
 3) Run the migration (vs code terminal cmd):
 Command: truffle migrate
-//Eg. C:\Users\hp\Pract bc\myProj> truffle migrate
+//Eg. C:\\Users\\hp\\Pract bc\\myProj> truffle migrate
 //(op: saving artifacts)
 
 Step 6: Interact with the Deployed Contract
 1) Open the new command prompt terminal of vscode:
 Command: truffle console
-//C:\Users\hp\Pract bc\myProj> truffle console
+//C:\\Users\\hp\\Pract bc\\myProj> truffle console
 2) Interact with the deployed contract:
 Execute the following commands one-by-one
 let instance = await SimpleStorage.deployed()
@@ -2005,6 +2005,7 @@ await instance.set(42)
 let value = await instance.get()
 value.toString() // Output should be '42'
     ''')
+
 
 
 def bc_p7():
