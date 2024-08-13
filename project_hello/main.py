@@ -1894,24 +1894,24 @@ def bc_index():
 
     ''')
 
-
-def bc_p0():
-    print('''
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-contract SimpleStorage {
-uint256 private storedData;
-// Function to set the value of storedData
-function set(uint256 x) public {
-storedData = x;
-}
-// Function to get the value of storedData
-function get() public view returns (uint256) {
-return storedData;
-}
-}
-    ''')
-
+#
+# def bc_p0():
+#     print('''
+# // SPDX-License-Identifier: MIT
+# pragma solidity ^0.8.0;
+# contract SimpleStorage {
+# uint256 private storedData;
+# // Function to set the value of storedData
+# function set(uint256 x) public {
+# storedData = x;
+# }
+# // Function to get the value of storedData
+# function get() public view returns (uint256) {
+# return storedData;
+# }
+# }
+#     ''')
+#
 
 # def bc_p8():
 #     print('''
