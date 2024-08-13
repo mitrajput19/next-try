@@ -1913,99 +1913,99 @@ return storedData;
     ''')
 
 
-def bc_p8():
-    print('''
-To check if the prerequisites (Node.js, npm, and Truffle) are installed, you can run the
-following commands:
-Step 1: Prerequisites
-Install Node.js
-https://nodejs.org/en/download/prebuilt-installer
-Execute the following Commands:
-npm install -g truffle
-npm install -g ganache-cli
-
-1) Check Node.js and npm installation:
-node -v
-npm -v
-2) Check Truffle installation:
-truffle version
-3) Install Ganache
-https://archive.trufflesuite.com/ganache/
-4) Create a new Workspace (pract_bc) in ganache software.
-Step 2: Initialize a Truffle Project
-
-1) Create a new directory for your project:
-mkdir myProj
-cd myProj
-2) Initialize the Truffle project:
-truffle init
-
-Step 3: Create a Solidity Smart Contract
-
-1) Navigate to the Contracts directory(myProj/contracts) in vs code:
-SimpleStorage.sol
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-contract SimpleStorage {
-uint256 public storedData;
-function set(uint256 x) public {
-storedData = x;
-}
-function get() public view returns (uint256) {
-return storedData;
-}
-}
-2) Compile the Smart Contract in terminal of vs code.
-Command: truffle compile
-C:\\Users\\hp\\Pract bc\\myProj> truffle compile
-
-Step 4: Configure Truffle to Use Ganache
-
-Open the truffle-config.js file and configure the development network to use Ganache. Update
-the networks section:
-module.exports = {
-networks: {
-development: {
-host: "127.0.0.1",
-port: 7545, // Match the port Ganache is using
-network_id: "*" // Match any network id
-}
-},
-compilers: {
-solc: {
-version: "0.8.0" // Specify the Solidity compiler version
-}
-}
-};
-Step 5: Migrate the Smart Contract to Ganache
-1) Start Ganache (open the Ganache application and start a new
-workspace(pract_bc))
-2) Create a migration script in the migrations directory
-(e.g., deploy_contracts.js) (following is code for that):
-\\myProj\\migrations\\2_deploy_contracts.js
-const SimpleStorage = artifacts.require("SimpleStorage");
-
-module.exports = function (deployer) {
-deployer.deploy(SimpleStorage);
-};
-
-3) Run the migration (vs code terminal cmd):
-Command: truffle migrate
-//Eg. C:\\Users\\hp\\Pract bc\\myProj> truffle migrate
-//(op: saving artifacts)
-
-Step 6: Interact with the Deployed Contract
-1) Open the new command prompt terminal of vscode:
-Command: truffle console
-//C:\\Users\\hp\\Pract bc\\myProj> truffle console
-2) Interact with the deployed contract:
-Execute the following commands one-by-one
-let instance = await SimpleStorage.deployed()
-await instance.set(42)
-let value = await instance.get()
-value.toString() // Output should be '42'
-    ''')
-
+# def bc_p8():
+#     print('''
+# To check if the prerequisites (Node.js, npm, and Truffle) are installed, you can run the
+# following commands:
+# Step 1: Prerequisites
+# Install Node.js
+# https://nodejs.org/en/download/prebuilt-installer
+# Execute the following Commands:
+# npm install -g truffle
+# npm install -g ganache-cli
+#
+# 1) Check Node.js and npm installation:
+# node -v
+# npm -v
+# 2) Check Truffle installation:
+# truffle version
+# 3) Install Ganache
+# https://archive.trufflesuite.com/ganache/
+# 4) Create a new Workspace (pract_bc) in ganache software.
+# Step 2: Initialize a Truffle Project
+#
+# 1) Create a new directory for your project:
+# mkdir myProj
+# cd myProj
+# 2) Initialize the Truffle project:
+# truffle init
+#
+# Step 3: Create a Solidity Smart Contract
+#
+# 1) Navigate to the Contracts directory(myProj/contracts) in vs code:
+# SimpleStorage.sol
+# // SPDX-License-Identifier: MIT
+# pragma solidity ^0.8.0;
+# contract SimpleStorage {
+# uint256 public storedData;
+# function set(uint256 x) public {
+# storedData = x;
+# }
+# function get() public view returns (uint256) {
+# return storedData;
+# }
+# }
+# 2) Compile the Smart Contract in terminal of vs code.
+# Command: truffle compile
+# C:\\Users\\hp\\Pract bc\\myProj> truffle compile
+#
+# Step 4: Configure Truffle to Use Ganache
+#
+# Open the truffle-config.js file and configure the development network to use Ganache. Update
+# the networks section:
+# module.exports = {
+# networks: {
+# development: {
+# host: "127.0.0.1",
+# port: 7545, // Match the port Ganache is using
+# network_id: "*" // Match any network id
+# }
+# },
+# compilers: {
+# solc: {
+# version: "0.8.0" // Specify the Solidity compiler version
+# }
+# }
+# };
+# Step 5: Migrate the Smart Contract to Ganache
+# 1) Start Ganache (open the Ganache application and start a new
+# workspace(pract_bc))
+# 2) Create a migration script in the migrations directory
+# (e.g., deploy_contracts.js) (following is code for that):
+# \\myProj\\migrations\\2_deploy_contracts.js
+# const SimpleStorage = artifacts.require("SimpleStorage");
+#
+# module.exports = function (deployer) {
+# deployer.deploy(SimpleStorage);
+# };
+#
+# 3) Run the migration (vs code terminal cmd):
+# Command: truffle migrate
+# //Eg. C:\\Users\\hp\\Pract bc\\myProj> truffle migrate
+# //(op: saving artifacts)
+#
+# Step 6: Interact with the Deployed Contract
+# 1) Open the new command prompt terminal of vscode:
+# Command: truffle console
+# //C:\\Users\\hp\\Pract bc\\myProj> truffle console
+# 2) Interact with the deployed contract:
+# Execute the following commands one-by-one
+# let instance = await SimpleStorage.deployed()
+# await instance.set(42)
+# let value = await instance.get()
+# value.toString() // Output should be '42'
+#     ''')
+#
 
 
 def bc_p7():
