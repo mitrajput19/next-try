@@ -1956,7 +1956,7 @@ return storedData;
 }
 2) Compile the Smart Contract in terminal of vs code.
 Command: truffle compile
-C:\\Users\\hp\\Pract bc\\myProj&gt; truffle compile
+C:\Users\\hp\\Pract bc\\myProj&gt; truffle compile
 
 Step 4: Configure Truffle to Use Ganache
 
@@ -1990,13 +1990,13 @@ deployer.deploy(SimpleStorage);
 
 3) Run the migration (vs code terminal cmd):
 Command: truffle migrate
-//Eg. C:\\Users\\hp\\Pract bc\\myProj&gt; truffle migrate
+//Eg. C:\Users\hp\Pract bc\myProj&gt; truffle migrate
 //(op: saving artifacts)
 
 Step 6: Interact with the Deployed Contract
 1) Open the new command prompt terminal of vscode:
 Command: truffle console
-//C:\\Users\\hp\\Pract bc\\myProj&gt; truffle console
+//C:\Users\hp\Pract bc\myProj&gt; truffle console
 2) Interact with the deployed contract:
 Execute the following commands one-by-one
 let instance = await SimpleStorage.deployed()
